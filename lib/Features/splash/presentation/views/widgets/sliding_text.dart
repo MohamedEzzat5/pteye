@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:pteye/core/utils/style.dart';
 
 class SlidingText extends StatelessWidget {
   const SlidingText({
@@ -15,7 +16,7 @@ class SlidingText extends StatelessWidget {
       builder: (context, _) => SlideTransition(
         position: slidingAnimation,
         child: const Text(
-          'Read Free Books',
+          'Welcome to PT eye',style: Styles.textStyle16,
           textAlign: TextAlign.center,
         ),
       ),
