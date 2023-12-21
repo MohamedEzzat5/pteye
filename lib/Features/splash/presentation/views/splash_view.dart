@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pteye/Features/splash/presentation/views/widgets/splash_view_body.dart';
+import 'package:pteye/core/utils/constance.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({super.key});
@@ -7,6 +8,7 @@ class SplashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      backgroundColor: kPrimaryColor,
       body: SplashViewBody(),
     );
   }

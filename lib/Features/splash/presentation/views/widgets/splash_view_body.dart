@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pteye/Features/splash/presentation/views/widgets/sliding_text.dart';
 import 'package:pteye/core/utils/app_router.dart';
+import 'package:pteye/core/utils/assets.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -31,11 +32,13 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Image.asset(''),
+        Image.asset(Assets.logo,height: height*.2,),
+        const SizedBox(height: 5,),
         SlidingText(slidingAnimation: slidingAnimation),
       ],
     );
@@ -44,7 +47,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
   // function to navigate to home in init state
   void navigateToHome() {
     Future.delayed(const Duration(seconds: 3), () {
-      GoRouter.of(context).push(AppRouter.kHomeView);
+      GoRouter.of(context).push(AppRouter.kLoginView);
     });
   }
 
