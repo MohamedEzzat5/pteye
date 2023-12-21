@@ -42,7 +42,7 @@ class RegisterViewBody extends StatelessWidget {
               controller: nameController,
               //focusNode: emailFocus,
               keyboardType: TextInputType.text,
-              hintText: 'الاسم',
+              hintText: 'اسم المستخدم',
               textAlign: TextAlign.right,
               suffixIcon: const Icon(
                 Icons.person,
