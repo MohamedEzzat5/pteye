@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "31572980413",
+    "project_id": "pt-eye",
+    "storage_bucket": "pt-eye.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:31572980413:android:518114d05373ddbc1bbdd4",
+        "android_client_info": {
+          "package_name": "com.example.pteye"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKBtQjJOgUBwAFio_mUXcBP0gQBML0gvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
