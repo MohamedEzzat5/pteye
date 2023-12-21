@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pteye/core/utils/style.dart';
 
@@ -17,7 +16,7 @@ class SlidingText extends StatelessWidget {
       builder: (context, _) => SlideTransition(
         position: slidingAnimation,
         child:  Text(
-          'Welcome to PT eye',style: Styles.textStyle18.copyWith(color: Colors.white ),
+          'مرحباً بك، نتمني لك الشفاء العاجل',style: Styles.textStyle16.copyWith(color: Colors.white,fontWeight: FontWeight.w600 ),
           textAlign: TextAlign.center,
         ),
       ),
