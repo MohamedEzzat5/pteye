@@ -107,13 +107,13 @@ class LoginViewBody extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   DefaultText(
-                    text: 'سجل هنا.',
+                    text: 'سجل هنا ',
                     color: kPrimaryColor,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                   DefaultText(
-                    text: 'ليس لديك حساب؟ ',
+                    text: 'ليس لديك حساب؟',
                     color: Colors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,

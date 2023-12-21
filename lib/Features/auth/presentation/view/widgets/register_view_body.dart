@@ -127,13 +127,13 @@ class RegisterViewBody extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   DefaultText(
-                    text: 'قم بتسجيل الدخول هنا.',
+                    text: 'قم بتسجيل الدخول هنا ',
                     color: kPrimaryColor,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),
                   DefaultText(
-                    text: 'هل لديك حساب بالفعل؟ ',
+                    text: 'هل لديك حساب بالفعل؟',
                     color: Colors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
