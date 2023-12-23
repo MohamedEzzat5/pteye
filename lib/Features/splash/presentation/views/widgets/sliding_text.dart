@@ -16,7 +16,7 @@ class SlidingText extends StatelessWidget {
       builder: (context, _) => SlideTransition(
         position: slidingAnimation,
         child:  Text(
-          'مرحباً بك، نتمني لك الشفاء العاجل',style: Styles.textStyle16.copyWith(color: Colors.white,fontWeight: FontWeight.w600 ),
+          'تدرب جيداً لصحة أفضل',style: Styles.textStyle16.copyWith(color: Colors.white,fontWeight: FontWeight.w600 ),
           textAlign: TextAlign.center,
         ),
       ),
