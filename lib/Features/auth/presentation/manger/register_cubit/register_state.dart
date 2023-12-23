@@ -8,6 +8,6 @@ class RegisterSuccess extends RegisterState {}
 class RegisterFailure extends RegisterState {
   final String errMessage;
 
-  RegisterFailure(this.errMessage);
+  RegisterFailure({required this.errMessage});
 }
 class RegisterLoading extends RegisterState {}

@@ -98,7 +98,9 @@ class CustomFormField extends StatelessWidget {
         textDirection: textDirection,
         initialValue: initialValue,
         controller: controller,
-        validator: validator,
+        validator: (data){ if (data!.isEmpty) {
+          return 'field is required';
+        }},
         keyboardType: keyboardType,
         onFieldSubmitted: onFieldSubmitted,
         onEditingComplete: onEditingComplete,
