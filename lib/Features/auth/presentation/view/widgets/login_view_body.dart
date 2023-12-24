@@ -55,7 +55,7 @@ class LoginViewBody extends StatelessWidget {
                     height: height * .08,
                   ),
                   Image.asset(
-                    Assets.logoImage,
+                    Assets.imagesLogo,
                     height: height * .2,
                   ),
                   const SizedBox(
