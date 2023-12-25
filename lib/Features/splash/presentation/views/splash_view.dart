@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pteye/Features/splash/presentation/views/widgets/splash_view_body.dart';
-import 'package:pteye/core/utils/constance.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({super.key});

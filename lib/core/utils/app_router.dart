@@ -22,7 +22,7 @@ abstract class AppRouter {
       GoRoute(
         path: kHomeView,
         builder: (BuildContext context, GoRouterState state) {
-          return const HomeView();
+          return HomeView();
         },
       ),
       GoRoute(

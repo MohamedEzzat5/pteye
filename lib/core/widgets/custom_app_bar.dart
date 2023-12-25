@@ -11,7 +11,7 @@ class CustomAppBar extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.only(top: 50,right: 20,left: 20,bottom: 10),
+        padding: const EdgeInsets.only(top: 52.5,right: 20,left: 20,bottom: 12.5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
