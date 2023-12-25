@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:pteye/Features/home/presentation/view/files_views.dart';
 import 'package:pteye/Features/home/presentation/view/widgets/home_view_body.dart';
-import 'package:pteye/Features/profile/profile_view.dart';
+import 'package:pteye/Features/profile/presentation/views/profile_view.dart';
 
 class CustomNavBar extends StatelessWidget {
    CustomNavBar({super.key});
@@ -30,23 +30,23 @@ class CustomNavBar extends StatelessWidget {
       popAllScreensOnTapOfSelectedTab: true,
       popActionScreens: PopActionScreensType.all,
       itemAnimationProperties: const ItemAnimationProperties( // Navigation Bar's items animation properties.
-        duration: Duration(milliseconds: 200),
+        duration: Duration(milliseconds: 100),
         curve: Curves.ease,
       ),
       screenTransitionAnimation: const ScreenTransitionAnimation( // Screen transition animation on change of selected tab.
         animateTabTransition: true,
         curve: Curves.ease,
-        duration: Duration(milliseconds: 200),
+        duration: Duration(milliseconds: 100),
       ),
-      navBarStyle: NavBarStyle.style1, // Choose the nav bar style with this property.
+      navBarStyle: NavBarStyle.style9,navBarHeight: 55,padding:const NavBarPadding.symmetric(horizontal: 5), // Choose the nav bar style with this property.
     );
   }
 
   List<Widget> _buildScreens() {
     return [
-      const ProfileView(),
-      const FilesView(),
       const HomeViewBody(),
+      const FilesView(),
+      const ProfileView(),
 
 
 
@@ -55,24 +55,26 @@ class CustomNavBar extends StatelessWidget {
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.settings),
-        title: ("الاعدادات"),
+        icon: const Icon(CupertinoIcons.home),
+        title: ("الرئيسية"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
+
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.folder),
         title: ("ملفاتك"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
-
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.home),
-        title: ("الرئيسية"),
+        icon: const Icon(CupertinoIcons.settings),
+        title: ("الاعدادات"),
         activeColorPrimary: CupertinoColors.activeBlue,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
+
+
     ];
   }
 }

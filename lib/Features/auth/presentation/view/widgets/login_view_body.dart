@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pteye/Features/auth/presentation/manger/login_cubit/login_cubit.dart';
+import 'package:pteye/Features/auth/presentation/manger/login_cubit/login_state.dart';
 import 'package:pteye/core/utils/app_router.dart';
 import 'package:pteye/core/utils/constance.dart';
 import 'package:pteye/core/utils/style.dart';
@@ -35,7 +36,7 @@ class LoginViewBody extends StatelessWidget {
         message: 'تم تسجيل الدخول بنجاح',
       );
     } else if (state is LoginFailure) {
-      return showSnackBar(context, message: state.errMessage);
+      return showSnackBar(context, message: state.error);
 
     }
   },
@@ -119,7 +120,7 @@ class LoginViewBody extends StatelessWidget {
                       if (formKey.currentState!.validate()) {
                         BlocProvider.of<LoginCubit>(context).loginUser(
                             email: emailController.text,
-                            password: passwordController.text).then((value) {});
+                            password: passwordController.text);
                       } else {}
                     },
                     text: 'تسجيل الدخول',

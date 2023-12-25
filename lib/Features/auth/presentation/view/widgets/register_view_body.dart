@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pteye/Features/auth/presentation/manger/register_cubit/register_cubit.dart';
+import 'package:pteye/Features/auth/presentation/manger/register_cubit/register_state.dart';
 import 'package:pteye/core/utils/app_router.dart';
 import 'package:pteye/core/utils/constance.dart';
 import 'package:pteye/core/utils/style.dart';
@@ -18,6 +19,7 @@ class RegisterViewBody extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
   bool isLoaded = false;
 
@@ -39,7 +41,7 @@ class RegisterViewBody extends StatelessWidget {
           isLoaded = false;
           return showSnackBar(
             (context),
-            message: state.errMessage,
+            message: state.error,
           );
         }
       },
@@ -103,6 +105,29 @@ class RegisterViewBody extends StatelessWidget {
                         textAlign: TextAlign.right,
                         suffixIcon: const Icon(
                           Icons.email,
+                          size: 22,
+                        ),
+                        inputBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        inputFocusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: const BorderSide(
+                              color: kPrimaryColor,
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      CustomFormField(
+                        controller: phoneController,
+                        onChanged: (data) {
+                        },
+                        keyboardType: TextInputType.number,
+                        hintText: 'رقم الهاتف',
+                        textAlign: TextAlign.right,
+                        suffixIcon: const Icon(
+                          Icons.phone_iphone,
                           size: 22,
                         ),
                         inputBorder: OutlineInputBorder(

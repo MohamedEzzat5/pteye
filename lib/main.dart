@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pteye/Features/auth/data/repos/auth_repo.dart';
+import 'package:pteye/Features/auth/data/repos/auth_repo_impl.dart';
 import 'package:pteye/Features/auth/presentation/manger/login_cubit/login_cubit.dart';
 import 'package:pteye/core/utils/app_router.dart';
 import 'package:pteye/core/utils/constance.dart';
@@ -10,24 +12,30 @@ import 'package:pteye/firebase_options.dart';
 import 'Features/auth/presentation/manger/register_cubit/register_cubit.dart';
 
 void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,);
-  runApp(const MyApp());
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,);
+  } catch (e) {
+    // TODO
+  }
+
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+   MyApp({super.key});
+   String email = 'mohamed10@email.com'; // Replace with your actual email
+  String password = '123456789';
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => RegisterCubit(),
+          create: (context) => RegisterCubit(AuthRepoImplementation()),
         ),
         BlocProvider(
-          create: (context) => LoginCubit(),
+          create: (context) => LoginCubit(AuthRepoImplementation()..loginUser(email, password)),
         ),
       ],
       child: MaterialApp.router(

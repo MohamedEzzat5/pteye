@@ -1,50 +1,72 @@
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:pteye/Features/auth/data/repos/auth_repo.dart';
-//
-// class AuthRepoImpl implements AuthRepo
-// {
-//   @override
-//   Future<void> loginUser({String? email, password}) async {
-//     try {
-//       UserCredential user = await FirebaseAuth.instance
-//           .signInWithEmailAndPassword(email: email!, password: password!);
-//       // Handle successful login here
-//     } on FirebaseAuthException catch (e) {
-//       String errorMessage = 'please enter correct email and password!';
-//
-//       if (e.code == 'user-not-found') {
-//         errorMessage = 'User not found';
-//         // return showSnackBar(context , message: 'user not found') ;
-//       } else if (e.code == 'wrong-password') {
-//         errorMessage = 'Wrong password';
-//       }
-//      // return showSnackBar(context , message: 'wrong password') ;
-//     } catch (e) {
-//      // return showSnackBar(context , message: 'please enter correct email and password!') ;
-//     }
-//   }
-//
-//   @override
-//   Future<void> registerUser() async{
-//     try {
-//
-//       UserCredential user = await FirebaseAuth.instance
-//           .createUserWithEmailAndPassword(email: email!, password: password!);
-//       // Handle successful login here
-//     } on FirebaseAuthException catch (e) {
-//       String errorMessage = 'email in use, try again';
-//
-//       if (e.code == 'email-already-in-use') {
-//         errorMessage = 'User not found';
-//        // return showSnackBar(context , message: errorMessage) ;
-//       } else if (e.code == 'weak-password') {
-//         errorMessage = 'Weak password';
-//       }
-//      // return showSnackBar(context , message: 'weak password') ;
-//     } catch (e) {
-//       //return showSnackBar(context , message: 'email in use, try again') ;
-//     }
-//   }
-//
-//
-// }
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pteye/Features/auth/data/repos/auth_repo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class AuthRepoImplementation implements AuthRepo {
+  @override
+  Future<void> loginUser(String email, String password) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      // Save user credentials to SharedPreferences after successful login
+      await saveUserCredentials(email, password);
+    } on FirebaseAuthException catch (e) {
+      // Handle specific Firebase authentication exceptions
+      if (e.code == 'user-not-found') {
+        throw 'بريد الكتروني غير صحيح!';
+      } else if (e.code == 'wrong-password') {
+        throw 'كلمة مرور غير صحيحة!';
+      } else if (e.code == 'invalid-email') {
+        throw 'بريد إلكتروني غير صالح!';
+      } else {
+        throw 'خطأ: ادخل بيانات صحيحة';
+      }
+    } catch (e) {
+      // Handle other unexpected errors
+      throw 'حدث خطأ غير متوقع';
+    }
+  }
+
+
+  @override
+  Future<void> registerUser(String email, String password) async {
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      // Handle specific Firebase authentication exceptions for registration
+      if (e.code == 'email-already-in-use') {
+        throw 'this email is already exist';
+      } else if (e.code == 'weak-password') {
+        throw 'weak password';
+      } else {
+        throw 'حدث خطأ غير متوقع';
+      }
+    } catch (e) {
+      // Handle other unexpected errors
+      throw 'حدث خطأ غير متوقع';
+    }
+  }
+
+  // Save user credentials to SharedPreferences
+  @override
+  Future<void> saveUserCredentials(String email, String password) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('user_email', email);
+    await prefs.setString('user_password', password);
+  }
+
+  // Retrieve user credentials from SharedPreferences
+  Future<Map<String, String>> getUserCredentials() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? email = prefs.getString('user_email');
+    String? password = prefs.getString('user_password');
+
+    return {'email': email ?? '', 'password': password ?? ''};
+  }
+}

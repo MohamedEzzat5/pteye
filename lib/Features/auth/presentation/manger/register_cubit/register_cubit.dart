@@ -1,24 +1,42 @@
-import 'package:bloc/bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-part 'register_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pteye/Features/auth/data/repos/auth_repo.dart';
+import 'package:pteye/Features/auth/presentation/manger/register_cubit/register_state.dart';
 
+// Events
+abstract class RegisterEvent {}
+
+class RegisterButtonPressed extends RegisterEvent {
+  final String email;
+  final String password;
+
+  RegisterButtonPressed({required this.email, required this.password});
+}
+
+
+
+// Cubit
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit() : super(RegisterInitial());
-  Future<void> registerUser({required String email , required String password}) async {
+  final AuthRepo _authRepo;
+
+  RegisterCubit(this._authRepo) : super(RegisterInitial());
+
+  void registerUser({required String email, required String password}) async {
     emit(RegisterLoading());
+
     try {
-      UserCredential user = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+      // Call the registration method from the repository
+      await _authRepo.registerUser(email, password);
+      // If successful, emit the success state
       emit(RegisterSuccess());
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
-        emit(RegisterFailure(errMessage: 'this email is already exist'));
-      } else if (e.code == 'weak-password') {
-        emit(RegisterFailure(errMessage: 'weak password'));
+    } catch (e) {
+      // If an error occurs, emit the failure state with the error message
+      if (e is String) {
+        emit(RegisterFailure(error: e));
+      } else {
+        emit(RegisterFailure(error: 'حدث خطأ غير متوقع'));
+        // Log additional details for debugging if needed
+        print('Unexpected Error during registration: $e');
       }
-    }
-    catch (e){
-      emit(RegisterFailure(errMessage: 'something went wrong'));
     }
   }
 }
