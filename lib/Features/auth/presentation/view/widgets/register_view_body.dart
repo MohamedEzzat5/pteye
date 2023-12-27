@@ -60,7 +60,7 @@ class RegisterViewBody extends StatelessWidget {
                         height: height * .1,
                       ),
                       Image.asset(
-                        Assets.imagesLogo1,
+                        Assets.imagesLogo,
                         height: height * .090,
                       ),
                       const SizedBox(
