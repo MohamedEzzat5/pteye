@@ -41,7 +41,6 @@ class LoginViewBody extends StatelessWidget {
     }
   },
   builder: (context, state) {
-    bool isLoaded = state is LoginLoading;
     return ModalProgressHUD(
       inAsyncCall: isLoaded,
       child: Scaffold(
@@ -53,7 +52,7 @@ class LoginViewBody extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: height * .08,
+                    height: height * .1,
                   ),
                   Image.asset(
                     Assets.imagesLogo1,

@@ -4,15 +4,14 @@ import 'package:pteye/core/utils/app_router.dart';
 import 'package:pteye/core/utils/style.dart';
 import 'package:pteye/generated/assets.dart';
 
-class CustomGridViewItem extends StatelessWidget {
-  const CustomGridViewItem({super.key});
+class CustomExerciseGridViewItem extends StatelessWidget {
+  const CustomExerciseGridViewItem({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: ()
       {
-        GoRouter.of(context).push(AppRouter.kExerciseView);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -24,11 +23,11 @@ class CustomGridViewItem extends StatelessWidget {
           children: [
             const Spacer(flex: 1,),
             AspectRatio(
-              aspectRatio: 2/1.5,
+              aspectRatio: 5,
               child: Container(
                 margin: const EdgeInsets.all(10),
                 decoration: const BoxDecoration(
-                    image: DecorationImage(image: AssetImage(Assets.imagesItem),fit: BoxFit.fill,)
+                    image: DecorationImage(image: AssetImage(Assets.imagesHealthy),)
                 ),
               ),
             ),
@@ -37,7 +36,7 @@ class CustomGridViewItem extends StatelessWidget {
             const SizedBox(
               height: 2,
             ),
-            const Text('اسم المرض',style: Styles.textStyle18,),
+            const Text('اسم التمرين',style: Styles.textStyle18,),
             const Spacer(flex: 1,),
           ],
         ),

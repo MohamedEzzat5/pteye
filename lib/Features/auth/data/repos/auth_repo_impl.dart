@@ -62,6 +62,7 @@ class AuthRepoImplementation implements AuthRepo {
   }
 
   // Retrieve user credentials from SharedPreferences
+  @override
   Future<Map<String, String>> getUserCredentials() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? email = prefs.getString('user_email');

@@ -35,7 +35,7 @@ class RegisterViewBody extends StatelessWidget {
           isLoaded = false;
           return showSnackBar(
             (context),
-            message: 'تم تسجل حساب جديد بنجاح',
+            message: 'تم تسجيل حساب جديد بنجاح',
           );
         } else if (state is RegisterFailure) {
           isLoaded = false;
@@ -57,7 +57,7 @@ class RegisterViewBody extends StatelessWidget {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: height * .08,
+                        height: height * .1,
                       ),
                       Image.asset(
                         Assets.imagesLogo1,
