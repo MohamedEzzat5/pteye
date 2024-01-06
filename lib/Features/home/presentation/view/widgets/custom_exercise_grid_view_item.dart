@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:pteye/core/utils/app_router.dart';
 import 'package:pteye/core/utils/style.dart';
 import 'package:pteye/generated/assets.dart';
 
@@ -17,7 +15,6 @@ class CustomExerciseGridViewItem extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
-
         ),
         child: Column(
           children: [
