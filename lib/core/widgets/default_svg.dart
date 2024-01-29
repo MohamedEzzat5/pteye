@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter_svg/svg.dart';
 
 class DefaultSvg extends StatelessWidget {
@@ -26,7 +27,6 @@ class DefaultSvg extends StatelessWidget {
       iconPath,
       width: width,
       height: height,
-      color: color,
       alignment: alignment,
       fit: fit,
     );

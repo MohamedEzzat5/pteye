@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pteye/core/component/animation/tap_effect.dart';
 import 'package:pteye/core/utils/constance.dart';
 
 import 'default_text.dart';
 
 class CustomMaterialButton extends StatelessWidget {
   final bool isUpperCase;
+  final bool loading;
   final double width;
   final double height;
   final double radius;
@@ -34,30 +36,36 @@ class CustomMaterialButton extends StatelessWidget {
         this.fontSize,
         this.textScaleFactor,
         this.fontWeight,
-        this.elevation = 0})
+        this.elevation = 0,
+        this.loading=false,
+      })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
-      width: width,
-      child: MaterialButton(
-        padding: padding,
-        elevation: elevation,
-        splashColor: splashColor,
-        color: background,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(radius))),
-        onPressed: onPressed,
-        child: DefaultText(
-          text: isUpperCase ? text.toUpperCase() : text,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
-          textScaleFactor: textScaleFactor,
-          color: textColor,
-          fontSize: fontSize,
-          fontWeight: fontWeight,
+    return TapEffect(
+      isClickable: !loading,
+      onClick: loading ? null : onPressed,
+      child: SizedBox(
+        height: height,
+        width: width,
+        child: MaterialButton(
+          padding: padding,
+          elevation: elevation,
+          splashColor: splashColor,
+          color: background,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(radius))),
+          onPressed: onPressed,
+          child: DefaultText(
+            text: isUpperCase ? text.toUpperCase() : text,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+            textScaleFactor: textScaleFactor,
+            color: textColor,
+            fontSize: fontSize,
+            fontWeight: fontWeight,
+          ),
         ),
       ),
     );

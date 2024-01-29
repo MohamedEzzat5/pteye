@@ -1,4 +1,5 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pteye/Features/splash/presentation/views/widgets/sliding_text.dart';
@@ -46,9 +47,12 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
   // function to navigate to home in init state
   void navigateToHome() {
+    FirebaseAuth.instance.currentUser == null ?
     Future.delayed(const Duration(seconds: 3), () {
       GoRouter.of(context).push(AppRouter.kLoginView);
-    });
+    }) : Future.delayed(const Duration(seconds: 3), () {
+      GoRouter.of(context).push(AppRouter.kHomeView);
+    }) ;
   }
 
 // in init function => sliding animation.

@@ -128,6 +128,7 @@ class CustomFormField extends StatelessWidget {
           focusedBorder: inputFocusedBorder,
           hintText: hintText,
           hintStyle: const TextStyle(
+            fontSize: 15,
             color: Colors.grey,
           ),
           hintTextDirection: TextDirection.ltr,

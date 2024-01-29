@@ -37,10 +37,14 @@ android {
         applicationId "com.example.pteye"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        minSdkVersion 22
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
+    }
+    dependencies {
+        implementation 'com.android.support:multidex:1.0.3'
     }
 
     buildTypes {
@@ -55,3 +59,4 @@ android {
 flutter {
     source '../..'
 }
+

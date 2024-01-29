@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 abstract class Failure {
   final String errMessage;
 
@@ -44,3 +46,32 @@ class ServerFailure extends Failure {
     }
   }
 }
+
+
+
+class FirebaseAuthExceptionHandler {
+  static String handleException(FirebaseAuthException e,) {
+    String errorMessage = 'An unexpected error occurred.';
+
+    switch (e.code) {
+      case 'user-not-found':
+        errorMessage ='المستخدم غير موجود. يرجى التحقق من البريد الإلكتروني.' ;
+        break;
+      case 'wrong-password':
+        errorMessage ='كلمة المرور غير صحيحة. يرجى المحاولة مرة أخرى.';
+        break;
+      case 'email-already-in-use':
+        errorMessage ='البريد الإلكتروني مستخدم بالفعل. يرجى استخدام بريد إلكتروني آخر.';
+        break;
+      case 'weak-password':
+        errorMessage ='كلمة المرور ضعيفة جداً.';
+        break;
+    // Add more cases for other error codes as needed
+      default:
+        errorMessage ='حدث خطأ غير متوقع.';
+    }
+
+    return errorMessage;
+  }
+}
+

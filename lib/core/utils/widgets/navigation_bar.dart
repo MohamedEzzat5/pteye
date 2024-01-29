@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:pteye/Features/home/presentation/view/files_views.dart';
 import 'package:pteye/Features/home/presentation/view/widgets/home_view_body.dart';
@@ -47,9 +48,6 @@ class CustomNavBar extends StatelessWidget {
       const HomeViewBody(),
       const FilesView(),
       const ProfileView(),
-
-
-
     ];
   }
   List<PersistentBottomNavBarItem> _navBarsItems() {

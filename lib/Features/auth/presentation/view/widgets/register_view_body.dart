@@ -1,3 +1,6 @@
+// ignore_for_file: depend_on_referenced_packages
+
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pteye/Features/auth/presentation/manger/register_cubit/register_cubit.dart';
@@ -5,7 +8,7 @@ import 'package:pteye/Features/auth/presentation/manger/register_cubit/register_
 import 'package:pteye/core/utils/app_router.dart';
 import 'package:pteye/core/utils/constance.dart';
 import 'package:pteye/core/utils/style.dart';
-import 'package:pteye/core/utils/widgets/show_snackbar.dart';
+import 'package:pteye/core/utils/widgets/alert_dialog.dart';
 import 'package:pteye/core/widgets/default_button.dart';
 import 'package:pteye/core/widgets/default_form_field.dart';
 import 'package:pteye/core/widgets/default_text.dart';
@@ -31,18 +34,16 @@ class RegisterViewBody extends StatelessWidget {
         if (state is RegisterLoading) {
           isLoaded = true;
         } else if (state is RegisterSuccess) {
-          GoRouter.of(context).push(AppRouter.kHomeView);
+          GoRouter.of(context).push(AppRouter.kHomeView,);
           isLoaded = false;
-          return showSnackBar(
-            (context),
-            message: 'تم تسجيل حساب جديد بنجاح',
-          );
         } else if (state is RegisterFailure) {
           isLoaded = false;
-          return showSnackBar(
-            (context),
-            message: state.error,
-          );
+          customAwesomeDialog(
+              buildContext: context,
+              title: 'خطأ',
+              dialogType: DialogType.error,
+              animType: AnimType.scale,
+              description: state.error);
         }
       },
       builder: (context, state) {
@@ -68,7 +69,8 @@ class RegisterViewBody extends StatelessWidget {
                       ),
                       Text(
                         'تسجيل حساب جديد',
-                        style: Styles.textStyle24.copyWith(color: kPrimaryColor),
+                        style:
+                            Styles.textStyle24.copyWith(color: kPrimaryColor),
                       ),
                       const SizedBox(
                         height: 50,
@@ -121,8 +123,7 @@ class RegisterViewBody extends StatelessWidget {
                       ),
                       CustomFormField(
                         controller: phoneController,
-                        onChanged: (data) {
-                        },
+                        onChanged: (data) {},
                         keyboardType: TextInputType.number,
                         hintText: 'رقم الهاتف',
                         textAlign: TextAlign.right,
@@ -169,19 +170,19 @@ class RegisterViewBody extends StatelessWidget {
                         height: 30,
                       ),
                       CustomMaterialButton(
-                        onPressed: ()async
-                        {
+                        onPressed: () async {
                           if (formKey.currentState!.validate()) {
-                            BlocProvider.of<RegisterCubit>(context).registerUser(
-                                email: emailController.text,
-                                password: passwordController.text);
+                            BlocProvider.of<RegisterCubit>(context)
+                                .registerUser(
+                              email: emailController.text,
+                              password: passwordController.text,
+                            );
                           } else {}
                         },
                         text: 'تسجيل حساب جديد',
                         fontSize: 20,
                         radius: 15,
                         fontWeight: FontWeight.w600,
-                        splashColor: Colors.blueGrey,
                       ),
                       const SizedBox(
                         height: 5,

@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pteye/Features/auth/presentation/manger/login_cubit/login_cubit.dart';
@@ -5,25 +6,25 @@ import 'package:pteye/Features/auth/presentation/manger/login_cubit/login_state.
 import 'package:pteye/core/utils/app_router.dart';
 import 'package:pteye/core/utils/constance.dart';
 import 'package:pteye/core/utils/style.dart';
-import 'package:pteye/core/utils/widgets/show_snackbar.dart';
 import 'package:pteye/core/widgets/default_button.dart';
 import 'package:pteye/core/widgets/default_form_field.dart';
 import 'package:pteye/core/widgets/default_text.dart';
 import 'package:pteye/generated/assets.dart';
+// ignore: depend_on_referenced_packages
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../core/utils/widgets/alert_dialog.dart';
 
 class LoginViewBody extends StatelessWidget {
   LoginViewBody({super.key});
-
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
-  bool isLoaded = false;
+   bool isLoaded = false;
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
-    //var width = MediaQuery.of(context).size.width;
     return BlocConsumer<LoginCubit, LoginState>(
   listener: (context, state) {
     if (state is LoginLoading) {
@@ -31,12 +32,15 @@ class LoginViewBody extends StatelessWidget {
     } else if (state is LoginSuccess) {
       GoRouter.of(context).push(AppRouter.kHomeView);
       isLoaded =false;
-      return showSnackBar(
-        (context),
-        message: 'تم تسجيل الدخول بنجاح',
-      );
     } else if (state is LoginFailure) {
-      return showSnackBar(context, message: state.error);
+      isLoaded = false;
+      customAwesomeDialog(
+          buildContext: context,
+          title: 'خطأ',
+          dialogType: DialogType.error,
+          animType: AnimType.scale,
+          description: state.error,
+      );
 
     }
   },

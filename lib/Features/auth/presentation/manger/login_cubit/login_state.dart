@@ -1,4 +1,6 @@
 // States
+import 'package:pteye/core/errors/failures.dart';
+
 abstract class LoginState {}
 
 class LoginInitial extends LoginState {}

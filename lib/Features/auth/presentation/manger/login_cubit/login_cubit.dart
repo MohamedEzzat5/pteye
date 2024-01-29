@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+// ignore: depend_on_referenced_packages
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pteye/Features/auth/data/repos/auth_repo.dart';
 import 'package:pteye/Features/auth/presentation/manger/login_cubit/login_state.dart';
+import 'package:pteye/core/errors/failures.dart';
 
 // Events
 abstract class LoginEvent {}
@@ -17,33 +21,28 @@ class LoginButtonPressed extends LoginEvent {
 
 // Cubit
 class LoginCubit extends Cubit<LoginState> {
-  final AuthRepo _authRepo;
+  final AuthRepo authRepo;
 
-  LoginCubit(this._authRepo) : super(LoginInitial());
+  LoginCubit({required this.authRepo}) : super(LoginInitial());
 
   void loginUser({required String email, required String password}) async {
     emit(LoginLoading());
 
     try {
       // Call the authentication method from the repository
-      await _authRepo.loginUser(email, password);
+      await authRepo.loginUser(email, password);
 
       // Save user credentials to SharedPreferences after successful login
-      await _authRepo.saveUserCredentials(email, password);
+      await authRepo.saveUserCredentials(email, password);
 
       // If successful, emit the success state
       emit(LoginSuccess());
-    } catch (e) {
-      // If an error occurs, emit the failure state with the error message
-      if (e is String) {
-        emit(LoginFailure(error: e));
-      } else {
-        emit(LoginFailure(error: 'حدث خطأ غير متوقع'));
-        // Log additional details for debugging if needed
-        if (kDebugMode) {
-          print('Unexpected Error during login: $e');
-        }
-      }
+    }on FirebaseAuthException catch (e){
+      final errorMessage =FirebaseAuthExceptionHandler.handleException(e);
+      emit(LoginFailure(error: errorMessage));
+    }
+    catch (e) {
+      emit(LoginFailure(error: 'من فضلك ادخل بيانات صحيحة'));
     }
   }
 }

@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pteye/Features/profile/presentation/views/widgets/custom_Container.dart';
 import 'package:pteye/Features/profile/presentation/views/widgets/custom_align_text.dart';
 import 'package:pteye/Features/profile/presentation/views/widgets/custom_avatar.dart';
+import 'package:pteye/core/utils/app_router.dart';
 import 'package:pteye/core/utils/style.dart';
 import 'package:pteye/core/widgets/custom_app_bar.dart';
 import 'package:pteye/core/widgets/default_button.dart';
@@ -22,8 +25,8 @@ class ProfileView extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          const Text(
-            '@mohamed',
+           Text(
+            FirebaseAuth.instance.currentUser!.email.toString(),
             style: Styles.textStyle16,
           ),
           const SizedBox(
@@ -34,7 +37,7 @@ class ProfileView extends StatelessWidget {
             height: 5,
           ),
           CustomContainer(
-            text: 'Mohamed Ezzat',
+            text: FirebaseAuth.instance.currentUser!.displayName.toString(),
           ),
           const SizedBox(
             height: 32,
@@ -44,7 +47,7 @@ class ProfileView extends StatelessWidget {
             height: 5,
           ),
           CustomContainer(
-            text: '01026692536',
+            text: FirebaseAuth.instance.currentUser!.phoneNumber.toString(),
           ),
           const SizedBox(
             height: 32,
@@ -52,8 +55,11 @@ class ProfileView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: CustomMaterialButton(
-                onPressed: ()
+              background: Colors.red,
+                onPressed: ()async
                 {
+                  await FirebaseAuth.instance.signOut();
+                  GoRouter.of(context).push(AppRouter.kLoginView);
                 },
                 text: 'تسجيل الخروج',fontSize: 18,fontWeight: FontWeight.w600,)
           )

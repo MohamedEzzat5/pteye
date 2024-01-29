@@ -1,30 +1,26 @@
-
 import 'package:flutter/material.dart';
-import 'package:pteye/Features/home/presentation/view/widgets/custom_diseases_grid_view_item.dart';
-import 'package:pteye/Features/home/presentation/view/widgets/custom_exercise_grid_view_item.dart';
-import 'package:pteye/core/widgets/custom_app_bar.dart';
+import 'package:pteye/Features/home/presentation/view/widgets/custom_exercise_list_view_item.dart';
+import 'package:pteye/core/component/animation/list_animator_data.dart';
+import 'package:pteye/core/utils/media_query_values.dart';
 
 class ExerciseViewBody extends StatelessWidget {
   const ExerciseViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
-      children: [
-
-    Expanded(
-    child: GridView.builder(
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 1,mainAxisSpacing: 15,crossAxisSpacing: 15,childAspectRatio: 2),
-    itemCount: 6,
-    physics: const  BouncingScrollPhysics(),
-    scrollDirection: Axis.vertical,
-    padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 10),
-    itemBuilder: (context, index){
-    return const CustomExerciseGridViewItem();
-    },
-    ),
-    ),
-      ],
+    return ListAnimatorData(
+      padding: EdgeInsets.symmetric(
+          vertical: context.height * 0.02, horizontal: context.width * 0.04),
+      isAnimated: true,
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: 5,
+      separatorWidget: SizedBox(
+        height: context.height * 0.02,
+      ),
+      itemBuilder: (context, index) {
+        return const CustomExerciseListViewItem();
+      },
     );
   }
 }

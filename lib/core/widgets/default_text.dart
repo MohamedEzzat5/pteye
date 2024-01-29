@@ -39,7 +39,7 @@ class DefaultText extends StatelessWidget {
       maxLines: maxLines,
       overflow: overflow,
       textAlign: textAlign,
-      textScaleFactor: textScaleFactor,
+
     );
   }
 }

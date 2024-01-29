@@ -1,5 +1,7 @@
+// ignore_for_file: unused_local_variable
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pteye/Features/auth/data/repos/auth_repo.dart';
+// ignore: depend_on_referenced_packages
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepoImplementation implements AuthRepo {
@@ -32,25 +34,23 @@ class AuthRepoImplementation implements AuthRepo {
 
 
   @override
-  Future<void> registerUser(String email, String password) async {
+  Future<void> registerUser(String email, String password ,) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+     final user = FirebaseAuth.instance.currentUser;
+
+
     } on FirebaseAuthException catch (e) {
-      // Handle specific Firebase authentication exceptions for registration
-      if (e.code == 'email-already-in-use') {
-        throw 'this email is already exist';
-      } else if (e.code == 'weak-password') {
-        throw 'weak password';
-      } else {
-        throw 'حدث خطأ غير متوقع';
-      }
+      rethrow;
     } catch (e) {
       // Handle other unexpected errors
       throw 'حدث خطأ غير متوقع';
     }
+
+
   }
 
   // Save user credentials to SharedPreferences
