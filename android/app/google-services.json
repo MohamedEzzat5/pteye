@@ -12,7 +12,20 @@
           "package_name": "com.example.pteye"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "31572980413-82sg3ps4nljqfdfq2vcubds6hj79emhv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pteye",
+            "certificate_hash": "cdb29c7399d758a15c34dafadf0b05d81ca3d9e8"
+          }
+        },
+        {
+          "client_id": "31572980413-9jivfala67p1tk9kufmkj9gurh7oa35q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCKBtQjJOgUBwAFio_mUXcBP0gQBML0gvU"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "31572980413-9jivfala67p1tk9kufmkj9gurh7oa35q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "31572980413-tk500kf6m9cks384qge6b82g9fs4ftht.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.pteye"
+              }
+            }
+          ]
         }
       }
     }

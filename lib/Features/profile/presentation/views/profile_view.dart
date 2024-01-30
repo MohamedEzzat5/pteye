@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pteye/Features/profile/presentation/views/widgets/custom_Container.dart';
 import 'package:pteye/Features/profile/presentation/views/widgets/custom_align_text.dart';
 import 'package:pteye/Features/profile/presentation/views/widgets/custom_avatar.dart';
@@ -58,6 +59,8 @@ class ProfileView extends StatelessWidget {
               background: Colors.red,
                 onPressed: ()async
                 {
+                  GoogleSignIn googleSignIn = GoogleSignIn();
+                  googleSignIn.disconnect();
                   await FirebaseAuth.instance.signOut();
                   GoRouter.of(context).push(AppRouter.kLoginView);
                 },
@@ -66,5 +69,8 @@ class ProfileView extends StatelessWidget {
         ],
       ),
     );
+
+
   }
+
 }

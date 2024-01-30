@@ -1,73 +1,83 @@
-// ignore_for_file: unused_local_variable
+import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pteye/Features/auth/data/repos/auth_repo.dart';
-// ignore: depend_on_referenced_packages
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pteye/core/errors/failures.dart';
+
 
 class AuthRepoImplementation implements AuthRepo {
   @override
-  Future<void> loginUser(String email, String password) async {
+  Future<Either<String, Unit>> loginUser(String email, String password) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-
-      // Save user credentials to SharedPreferences after successful login
-      await saveUserCredentials(email, password);
+      return right(unit);
     } on FirebaseAuthException catch (e) {
-      // Handle specific Firebase authentication exceptions
       if (e.code == 'user-not-found') {
-        throw 'بريد الكتروني غير صحيح!';
+        return left('بريد الكتروني غير صحيح!');
       } else if (e.code == 'wrong-password') {
-        throw 'كلمة مرور غير صحيحة!';
+        return left('كلمة مرور غير صحيحة!');
       } else if (e.code == 'invalid-email') {
-        throw 'بريد إلكتروني غير صالح!';
+        return left('بريد إلكتروني غير صالح!');
       } else {
-        throw 'خطأ: ادخل بيانات صحيحة';
+        return left('ادخل بيانات صحيحة!');
       }
     } catch (e) {
-      // Handle other unexpected errors
-      throw 'حدث خطأ غير متوقع';
+      return left('حدث خطأ غير متوقع');
     }
   }
 
 
   @override
-  Future<void> registerUser(String email, String password ,) async {
+  Future<Either<String, Unit>> loginWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
+
+      if (googleSignInAccount == null) {
+        return left('تم الغاء تسجيل الدخول بواسطه جوجل');
+      }
+
+      final GoogleSignInAuthentication googleSignInAuthentication =
+      await googleSignInAccount.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+      return right(unit);
+    } on FirebaseAuthException catch (e) {
+      return left(FirebaseAuthExceptionHandler.handleException(e));
+    } catch (e) {
+      return left('Google login failed: $e');
+    }
+  }
+  @override
+  Future<Either<String, Unit>> registerUser(String email, String password) async {
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
-     final user = FirebaseAuth.instance.currentUser;
 
-
+      return right(unit);
     } on FirebaseAuthException catch (e) {
-      rethrow;
+      if (e.code == 'email-already-in-use') {
+        return left('البريد الإلكتروني مستخدم بالفعل!');
+      } else if (e.code == 'invalid-email') {
+        return left('بريد إلكتروني غير صالح!');
+      } else if (e.code == 'weak-password') {
+        return left('كلمة المرور ضعيفة جداً!');
+      } else {
+        return left('خطأ: فشل التسجيل');
+      }
     } catch (e) {
-      // Handle other unexpected errors
-      throw 'حدث خطأ غير متوقع';
+      return left('حدث خطأ غير متوقع أثناء التسجيل');
     }
-
-
   }
 
-  // Save user credentials to SharedPreferences
-  @override
-  Future<void> saveUserCredentials(String email, String password) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('user_email', email);
-    await prefs.setString('user_password', password);
-  }
 
-  // Retrieve user credentials from SharedPreferences
-  @override
-  Future<Map<String, String>> getUserCredentials() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? email = prefs.getString('user_email');
-    String? password = prefs.getString('user_password');
-
-    return {'email': email ?? '', 'password': password ?? ''};
-  }
 }

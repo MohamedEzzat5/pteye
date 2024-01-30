@@ -23,11 +23,12 @@ class RegisterViewBody extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-  GlobalKey<FormState> formKey = GlobalKey();
-  bool isLoaded = false;
+  final GlobalKey<FormState> formKey = GlobalKey();
+
 
   @override
   Widget build(BuildContext context) {
+    bool isLoaded = false;
     final double height = MediaQuery.of(context).size.height;
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
@@ -180,7 +181,7 @@ class RegisterViewBody extends StatelessWidget {
                           } else {}
                         },
                         text: 'تسجيل حساب جديد',
-                        fontSize: 20,
+                        fontSize: 18,
                         radius: 15,
                         fontWeight: FontWeight.w600,
                       ),
@@ -198,13 +199,13 @@ class RegisterViewBody extends StatelessWidget {
                             DefaultText(
                               text: 'قم بتسجيل الدخول هنا ',
                               color: kPrimaryColor,
-                              fontSize: 16,
+                              fontSize: 15,
                               fontWeight: FontWeight.w600,
                             ),
                             DefaultText(
                               text: 'هل لديك حساب بالفعل؟',
                               color: Colors.black,
-                              fontSize: 16,
+                              fontSize: 15,
                               fontWeight: FontWeight.w600,
                             ),
                           ],

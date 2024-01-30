@@ -1,8 +1,7 @@
-abstract class AuthRepo
-{
-  Future<void> loginUser(String email, String password);
-  Future<void> registerUser(String email, String password);
-  Future<void> saveUserCredentials(String email, String password);
-  Future<Map<String, String>> getUserCredentials();
+import 'package:dartz/dartz.dart';
 
+abstract class AuthRepo {
+  Future<Either<String, Unit>> loginUser(String email, String password);
+  Future<Either<String, Unit>> loginWithGoogle();
+  Future<Either<String, Unit>> registerUser(String email, String password);
 }
