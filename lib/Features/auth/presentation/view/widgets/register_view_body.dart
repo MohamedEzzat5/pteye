@@ -71,10 +71,10 @@ class RegisterViewBody extends StatelessWidget {
                       Text(
                         'تسجيل حساب جديد',
                         style:
-                            Styles.textStyle24.copyWith(color: kPrimaryColor),
+                            Styles.textStyle22.copyWith(color: kPrimaryColor),
                       ),
                       const SizedBox(
-                        height: 50,
+                        height: 30,
                       ),
                       CustomFormField(
                         controller: nameController,
@@ -183,7 +183,7 @@ class RegisterViewBody extends StatelessWidget {
                           } else {}
                         },
                         text: 'تسجيل حساب جديد',
-                        fontSize: 18,
+                        fontSize: 16,
                         radius: 15,
                         fontWeight: FontWeight.w600,
                       ),

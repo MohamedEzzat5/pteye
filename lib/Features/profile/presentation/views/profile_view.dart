@@ -37,7 +37,7 @@ class ProfileView extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   var userData = snapshot.data?.data() as Map<String, dynamic>;
-        
+
                   return Column(
                     children: [
                       Text(
@@ -51,11 +51,17 @@ class ProfileView extends StatelessWidget {
                         text: userData['username'].toString(),
                       ),
                       const SizedBox(height: 32),
-                      CustomAlignText(text: 'رقم الهاتف'),
-                      const SizedBox(height: 5),
-                      CustomContainer(
-                        text: userData['phoneNumber'].toString() ,
+                      userData['phoneNumber'] == "" ? const SizedBox() :
+                      Column(
+                        children: [
+                          CustomAlignText(text: 'رقم الهاتف'),
+                          const SizedBox(height: 5),
+                          CustomContainer(
+                            text: userData['phoneNumber'].toString() ,
+                          ),
+                        ],
                       ),
+
                       const SizedBox(height: 32),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),

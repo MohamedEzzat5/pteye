@@ -69,7 +69,7 @@ class LoginViewBody extends StatelessWidget {
                       Text(
                         'تسجيل الدخول',
                         style:
-                            Styles.textStyle24.copyWith(color: kPrimaryColor),
+                            Styles.textStyle22.copyWith(color: kPrimaryColor),
                       ),
                       const SizedBox(
                         height: 50,
@@ -119,22 +119,22 @@ class LoginViewBody extends StatelessWidget {
                       const SizedBox(
                         height: 5,
                       ),
-                      TextButton(
-                        onPressed: () {
-                          // Navigate back to the login page
-                        },
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            DefaultText(
-                              text: 'هل نسيت كلمة المرور؟',
-                              color: kPrimaryColor,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ],
-                        ),
-                      ),
+                      // TextButton(
+                      //   onPressed: () {
+                      //     // Navigate back to the login page
+                      //   },
+                      //   child: const Row(
+                      //     mainAxisAlignment: MainAxisAlignment.end,
+                      //     children: [
+                      //       DefaultText(
+                      //         text: 'هل نسيت كلمة المرور؟',
+                      //         color: kPrimaryColor,
+                      //         fontSize: 15,
+                      //         fontWeight: FontWeight.w600,
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       const SizedBox(
                         height: 15,
                       ),
@@ -147,7 +147,7 @@ class LoginViewBody extends StatelessWidget {
                           } else {}
                         },
                         text: 'تسجيل الدخول',
-                        fontSize: 18,
+                        fontSize: 16,
                         radius: 15,
                         fontWeight: FontWeight.w600,
                       ),
@@ -173,7 +173,8 @@ class LoginViewBody extends StatelessWidget {
                             ),
                             Text(
                               'تسجيل الدخول بواسطة جوجل',
-                              style: Styles.textStyle18.copyWith(
+                              style: Styles.textStyle16.copyWith(
+                                fontWeight: FontWeight.w600,
                                 color: Colors.white,
                               ),
                             ),
