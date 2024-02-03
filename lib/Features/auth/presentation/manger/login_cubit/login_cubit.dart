@@ -31,7 +31,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   void loginWithGoogle() async {
     emit(LoginLoading());
-    final result = await authRepo.loginWithGoogle();
+    final result = await authRepo.signUpWithGoogle();
 
     result.fold(
           (error) => emit(LoginFailure(error: error)),

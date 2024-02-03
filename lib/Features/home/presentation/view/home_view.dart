@@ -10,10 +10,11 @@ class HomeView extends StatelessWidget {
 
   final PersistentTabController controller =
       PersistentTabController(initialIndex: 0);
-  DateTime? lastPressed;
+
 
   @override
   Widget build(BuildContext context) {
+     DateTime? lastPressed;
     return  PopScope(
       onPopInvoked: (t) {
         final now = DateTime.now();

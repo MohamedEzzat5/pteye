@@ -177,6 +177,8 @@ class RegisterViewBody extends StatelessWidget {
                                 .registerUser(
                               email: emailController.text,
                               password: passwordController.text,
+                              phoneNumber: phoneController.text,
+                              userName: nameController.text,
                             );
                           } else {}
                         },

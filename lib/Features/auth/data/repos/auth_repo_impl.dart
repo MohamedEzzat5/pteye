@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pteye/Features/auth/data/repos/auth_repo.dart';
-import 'package:pteye/core/errors/failures.dart';
 
 
 class AuthRepoImplementation implements AuthRepo {
@@ -31,37 +32,101 @@ class AuthRepoImplementation implements AuthRepo {
 
 
   @override
-  Future<Either<String, Unit>> loginWithGoogle() async {
+  // Future<Either<String, Unit>> loginWithGoogle() async {
+  //   try {
+  //     final GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
+  //
+  //     if (googleSignInAccount == null) {
+  //       return left('تم الغاء تسجيل الدخول بواسطه جوجل');
+  //     }
+  //
+  //     final GoogleSignInAuthentication googleSignInAuthentication =
+  //     await googleSignInAccount.authentication;
+  //     final AuthCredential credential = GoogleAuthProvider.credential(
+  //       accessToken: googleSignInAuthentication.accessToken,
+  //       idToken: googleSignInAuthentication.idToken,
+  //     );
+  //
+  //     await FirebaseAuth.instance.signInWithCredential(credential);
+  //
+  //     return right(unit);
+  //   } on FirebaseAuthException catch (e) {
+  //     return left(FirebaseAuthExceptionHandler.handleException(e));
+  //   } catch (e) {
+  //     return left('Google login failed: $e');
+  //   }
+  // }
+  @override
+  Future<Either<String, UserCredential?>> signUpWithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
 
       if (googleSignInAccount == null) {
-        return left('تم الغاء تسجيل الدخول بواسطه جوجل');
+        // User canceled Google Sign In
+        return left("User canceled Google Sign In");
       }
 
-      final GoogleSignInAuthentication googleSignInAuthentication =
-      await googleSignInAccount.authentication;
+      final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken,
       );
 
-      await FirebaseAuth.instance.signInWithCredential(credential);
+      final UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+
+      // Store user details in Firestore
+      final eitherResult = await storeUserDetailsInFirestore(userCredential.user!);
+
+      return eitherResult.fold(
+            (error) => left(error),
+            (_) => right(userCredential),
+      );
+    } catch (e) {
+      // Handle exceptions
+      if (kDebugMode) {
+        print("Error signing up with Google: $e");
+      }
+      return left("Error signing up with Google");
+    }
+  }
+
+  Future<Either<String, Unit>> storeUserDetailsInFirestore(User user) async {
+    try {
+      final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+
+      // Check if the user already exists in Firestore
+      final DocumentSnapshot userSnapshot = await usersCollection.doc(user.uid).get();
+      if (!userSnapshot.exists) {
+        // If the user doesn't exist, add their details to Firestore
+        await usersCollection.doc(user.uid).set({
+          'email': user.email,
+          'username': user.displayName ?? 'User', // You may need to adjust this based on your user data
+          'phoneNumber': user.phoneNumber ?? '', // You may need to adjust this based on your user data
+        });
+      }
 
       return right(unit);
-    } on FirebaseAuthException catch (e) {
-      return left(FirebaseAuthExceptionHandler.handleException(e));
     } catch (e) {
-      return left('Google login failed: $e');
+      if (kDebugMode) {
+        print("Error storing user details in Firestore: $e");
+      }
+      return left("Error storing user details in Firestore");
     }
   }
   @override
-  Future<Either<String, Unit>> registerUser(String email, String password) async {
+  Future<Either<String, Unit>> registerUser(String email, String password ,String userName,String phoneNumber) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      String userId = userCredential.user!.uid;
+      await FirebaseFirestore.instance.collection('users').doc(userId).set({
+        'email': email,
+        'username': userName,
+        'phoneNumber': phoneNumber,
+      });
 
       return right(unit);
     } on FirebaseAuthException catch (e) {

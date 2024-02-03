@@ -7,8 +7,10 @@ abstract class RegisterEvent {}
 class RegisterButtonPressed extends RegisterEvent {
   final String email;
   final String password;
+  final String userName;
+  final String phoneNumber;
 
-  RegisterButtonPressed({required this.email, required this.password});
+  RegisterButtonPressed( {required this.userName, required this.phoneNumber,required this.email, required this.password});
 }
 
 class RegisterCubit extends Cubit<RegisterState> {
@@ -16,10 +18,10 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   RegisterCubit({required this.authRepo}) : super(RegisterInitial());
 
-  void registerUser({required String email, required String password}) async {
+  void registerUser({required String email, required String password,userName,phoneNumber}) async {
     emit(RegisterLoading());
 
-    final result = await authRepo.registerUser(email, password);
+    final result = await authRepo.registerUser(email, password , userName ,phoneNumber);
 
     result.fold(
       (error) => emit(RegisterFailure(error: error)),
