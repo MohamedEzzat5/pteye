@@ -42,7 +42,9 @@ abstract class AppRouter {
       GoRoute(
         path: kExerciseView,
         builder: (BuildContext context, GoRouterState state) {
-          return const ExerciseView();
+          return  ExerciseView(
+            diseaseName: state.extra as String,
+          );
         },
       ),
 

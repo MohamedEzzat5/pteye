@@ -1,29 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:pteye/core/utils/media_query_values.dart';
 import 'package:pteye/core/utils/style.dart';
+import 'package:pteye/generated/assets.dart';
 
-class CustomExerciseListViewItem extends StatelessWidget {
-  const CustomExerciseListViewItem({super.key});
+class CustomExerciseGridViewItem extends StatelessWidget {
+  final String exerciseName;
+  final String videoLink;
+
+  const CustomExerciseGridViewItem({
+    Key? key,
+    required this.exerciseName,
+    required this.videoLink,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()
-      {
+      onTap: () {
+        // Handle video tap, e.g., open the video link
       },
       child: Container(
-        height: context.height*0.25,
         decoration: BoxDecoration(
-          color: Colors.blueGrey,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
           children: [
-            const Spacer(flex: 1,),
-            Icon(Icons.play_circle,size: context.height*0.16,),
-            SizedBox(height: context.height*0.015,),
-             Text('اسم التمرين',style: Styles.textStyle20.copyWith(color: Colors.white),),
-            const Spacer(flex: 1,),
+            const Spacer(flex: 1),
+            AspectRatio(
+              aspectRatio: 3 / 1.55,
+              child: Container(
+                margin: const EdgeInsets.all(10),
+                decoration: const BoxDecoration(
+                  // You can use a video thumbnail here if available
+                  image: DecorationImage(
+                    image: AssetImage(
+                      Assets.imagesVideoPlay,
+                    ),
+
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 2,
+            ),
+            Text(
+              exerciseName,
+              style: Styles.textStyle16.copyWith(fontWeight: FontWeight.w600),
+            ),
+            const Spacer(flex: 1),
           ],
         ),
       ),
