@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pteye/core/utils/style.dart';
 
 class CustomContainer extends StatelessWidget {
-   CustomContainer({super.key,required this.text});
-String text;
+   const CustomContainer({super.key,required this.text});
+final String text;
   @override
   Widget build(BuildContext context) {
     return  Container(

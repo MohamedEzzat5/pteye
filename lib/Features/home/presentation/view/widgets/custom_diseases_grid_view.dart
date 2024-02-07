@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pteye/Features/home/presentation/view/widgets/custom_diseases_grid_view_item.dart';
+import 'package:pteye/core/utils/constance.dart';
 
 class CustomDiseasesGridView extends StatelessWidget {
   const CustomDiseasesGridView({super.key});
@@ -34,7 +36,7 @@ class CustomDiseasesGridView extends StatelessWidget {
             ),
           );
         } else {
-          return const CircularProgressIndicator();
+          return const Center(child: SpinKitFadingCircle(color: kPrimaryColor,));
         }
       },
     );

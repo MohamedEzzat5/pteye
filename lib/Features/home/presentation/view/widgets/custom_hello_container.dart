@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pteye/core/utils/constance.dart';
 import 'package:pteye/core/utils/style.dart';
 import 'package:pteye/generated/assets.dart';
@@ -50,9 +49,7 @@ class HelloContainer extends StatelessWidget {
               ),
             );
           } else {
-            return const SpinKitFadingCircle(
-              color: kPrimaryColor,
-            );
+            return const Text('');
           }
         });
   }

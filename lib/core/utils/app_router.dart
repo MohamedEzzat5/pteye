@@ -5,6 +5,7 @@ import 'package:pteye/Features/auth/presentation/view/login_view.dart';
 import 'package:pteye/Features/auth/presentation/view/register_view.dart';
 import 'package:pteye/Features/home/presentation/view/exercise_view.dart';
 import 'package:pteye/Features/home/presentation/view/home_view.dart';
+import 'package:pteye/Features/home/presentation/view/video_view.dart';
 import 'package:pteye/Features/splash/presentation/views/splash_view.dart';
 
 abstract class AppRouter {
@@ -12,6 +13,7 @@ abstract class AppRouter {
   static const kLoginView = '/loginView';
   static const kRegisterView = '/registerView';
   static const kExerciseView = '/exerciseView';
+  static const kVideoPlayerView = '/videoPlayerView';
 
   static final router = GoRouter(
     routes: <RouteBase>[
@@ -44,6 +46,14 @@ abstract class AppRouter {
         builder: (BuildContext context, GoRouterState state) {
           return  ExerciseView(
             diseaseName: state.extra as String,
+          );
+        },
+      ),
+      GoRoute(
+        path: kVideoPlayerView,
+        builder: (BuildContext context, GoRouterState state) {
+          return  VideoPlayerView(
+            videoUrl: state.extra as String,
           );
         },
       ),

@@ -4,7 +4,7 @@ import 'package:pteye/core/utils/constance.dart';
 
 class CustomFormField extends StatelessWidget {
   final TextEditingController controller;
-  final String? Function(String?)? validator;
+  final String Function(String?)? validator;
   final VoidCallback? onTap;
   final String? labelText;
   final TextInputType keyboardType;
@@ -100,7 +100,9 @@ class CustomFormField extends StatelessWidget {
         controller: controller,
         validator: (data){ if (data!.isEmpty) {
           return 'من فضلك ادخل البيانات';
-        }},
+        }
+        return '';
+        },
         keyboardType: keyboardType,
         onFieldSubmitted: onFieldSubmitted,
         onEditingComplete: onEditingComplete,

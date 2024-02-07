@@ -4,8 +4,8 @@ import 'package:pteye/core/utils/constance.dart';
 import 'package:pteye/core/utils/style.dart';
 
 class CustomAppBar extends StatelessWidget {
-  CustomAppBar({super.key,required this.appBarTitle});
-  String appBarTitle;
+  const CustomAppBar({super.key,required this.appBarTitle});
+  final String appBarTitle;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,7 +20,7 @@ class CustomAppBar extends StatelessWidget {
               width: 85,
             ),
             const Spacer(),
-            Text(appBarTitle,style: Styles.textStyle22.copyWith(color: kPrimaryColor),),
+            Text(appBarTitle,style: Styles.textStyle20.copyWith(color: kPrimaryColor,fontWeight: FontWeight.w600),),
           ],
         ),
       ),

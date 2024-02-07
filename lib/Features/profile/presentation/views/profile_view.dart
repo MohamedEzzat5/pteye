@@ -25,7 +25,7 @@ class ProfileView extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            CustomAppBar(appBarTitle: 'الملف الشخصي'),
+            const CustomAppBar(appBarTitle: 'الملف الشخصي'),
             const SizedBox(height: 15),
             const CustomAvatar(),
             const SizedBox(height: 5),
@@ -45,7 +45,7 @@ class ProfileView extends StatelessWidget {
                         style: Styles.textStyle16,
                       ),
                       const SizedBox(height: 40),
-                      CustomAlignText(text: 'الاسم'),
+                      const CustomAlignText(text: 'الاسم'),
                       const SizedBox(height: 5),
                       CustomContainer(
                         text: userData['username'].toString(),
@@ -54,7 +54,7 @@ class ProfileView extends StatelessWidget {
                       userData['phoneNumber'] == "" ? const SizedBox() :
                       Column(
                         children: [
-                          CustomAlignText(text: 'رقم الهاتف'),
+                          const CustomAlignText(text: 'رقم الهاتف'),
                           const SizedBox(height: 5),
                           CustomContainer(
                             text: userData['phoneNumber'].toString() ,

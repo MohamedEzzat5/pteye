@@ -11,10 +11,8 @@ class CustomButton extends StatelessWidget {
   final String? _title;
   final Color? _color;
   final Color? _borderColor;
-  final Color? _textColor;
   final double? _width;
   final double? _height;
-  final double? _fontSize;
   final bool _isRounded;
   final bool _isOutlined;
   final bool _widerPadding;
@@ -40,9 +38,7 @@ class CustomButton extends StatelessWidget {
         _title = title,
         _color = color,
         _borderColor = borderColor,
-        _textColor = textColor,
         _width = width,
-        _fontSize = fontSize,
         _height = height,
         _isRounded = isRounded,
         _isOutlined = isOutlined,

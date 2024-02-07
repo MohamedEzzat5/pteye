@@ -21,10 +21,10 @@ class ListAnimator extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ListAnimatorState createState() => _ListAnimatorState();
+  ListAnimatorState createState() => ListAnimatorState();
 }
 
-class _ListAnimatorState extends State<ListAnimator> {
+class ListAnimatorState extends State<ListAnimator> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(

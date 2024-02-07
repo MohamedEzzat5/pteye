@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pteye/core/utils/app_router.dart';
 import 'package:pteye/core/utils/style.dart';
 import 'package:pteye/generated/assets.dart';
+
 
 class CustomExerciseGridViewItem extends StatelessWidget {
   final String exerciseName;
@@ -16,6 +19,7 @@ class CustomExerciseGridViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        GoRouter.of(context).push(AppRouter.kVideoPlayerView,extra: videoLink);
         // Handle video tap, e.g., open the video link
       },
       child: Container(
@@ -36,7 +40,6 @@ class CustomExerciseGridViewItem extends StatelessWidget {
                     image: AssetImage(
                       Assets.imagesVideoPlay,
                     ),
-
                   ),
                 ),
               ),
@@ -44,9 +47,9 @@ class CustomExerciseGridViewItem extends StatelessWidget {
             const SizedBox(
               height: 2,
             ),
-            Text(
-              exerciseName,
-              style: Styles.textStyle16.copyWith(fontWeight: FontWeight.w600),
+            Text(textAlign: TextAlign.center,
+              exerciseName,maxLines: 2,
+              style:  Styles.textStyle16.copyWith(fontWeight: FontWeight.w600,overflow:TextOverflow.ellipsis,),
             ),
             const Spacer(flex: 1),
           ],

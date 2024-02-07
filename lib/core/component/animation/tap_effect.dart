@@ -13,10 +13,10 @@ class TapEffect extends StatefulWidget {
   final Widget child;
 
   @override
-  _TapEffectState createState() => _TapEffectState();
+  TapEffectState createState() => TapEffectState();
 }
 
-class _TapEffectState extends State<TapEffect>
+class TapEffectState extends State<TapEffect>
     with SingleTickerProviderStateMixin {
   AnimationController? animationController;
   DateTime tapTime = DateTime.now();

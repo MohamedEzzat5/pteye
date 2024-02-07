@@ -21,10 +21,10 @@ class GridAnimator extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _GridAnimatorState createState() => _GridAnimatorState();
+  GridAnimatorState createState() => GridAnimatorState();
 }
 
-class _GridAnimatorState extends State<GridAnimator> {
+class GridAnimatorState extends State<GridAnimator> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(

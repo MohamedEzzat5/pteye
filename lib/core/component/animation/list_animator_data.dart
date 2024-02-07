@@ -53,10 +53,10 @@ class ListAnimatorData extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ListAnimatorDataState createState() => _ListAnimatorDataState();
+  ListAnimatorDataState createState() => ListAnimatorDataState();
 }
 
-class _ListAnimatorDataState extends State<ListAnimatorData> {
+class ListAnimatorDataState extends State<ListAnimatorData> {
 
 
   @override

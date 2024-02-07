@@ -13,10 +13,10 @@ class ColumnAnimator extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ColumnAnimatorState createState() => _ColumnAnimatorState();
+  ColumnAnimatorState createState() => ColumnAnimatorState();
 }
 
-class _ColumnAnimatorState extends State<ColumnAnimator> {
+class ColumnAnimatorState extends State<ColumnAnimator> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
