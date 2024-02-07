@@ -35,7 +35,7 @@ class CustomGridViewItem extends StatelessWidget {
               flex: 1,
             ),
             AspectRatio(
-              aspectRatio: 2 / 1.5,
+              aspectRatio: 1.8 / 1.3,
               child: Container(
                 margin: const EdgeInsets.all(10),
                 // decoration: BoxDecoration(
@@ -63,14 +63,17 @@ class CustomGridViewItem extends StatelessWidget {
             const SizedBox(
               height: 2,
             ),
-            Text(
-              textAlign: TextAlign.center,
-              diseaseName,
-              maxLines: 2,
-              style: Styles.textStyle16.copyWith(fontWeight: FontWeight.w600,overflow:TextOverflow.ellipsis,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5.0),
+              child: Text(
+                textAlign: TextAlign.center,
+                diseaseName,
+                maxLines: 2,
+                style: Styles.textStyle16.copyWith(fontWeight: FontWeight.w600,overflow:TextOverflow.ellipsis,),
+              ),
             ),
             const Spacer(
-              flex: 1,
+              flex: 2,
             ),
           ],
         ),
