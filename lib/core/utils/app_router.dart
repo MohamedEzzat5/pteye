@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pteye/Features/auth/presentation/view/login_view.dart';
 import 'package:pteye/Features/auth/presentation/view/register_view.dart';
+import 'package:pteye/Features/doctor/admin_panel.dart';
 import 'package:pteye/Features/home/presentation/view/exercise_view.dart';
 import 'package:pteye/Features/home/presentation/view/home_view.dart';
 import 'package:pteye/Features/home/presentation/view/video_view.dart';
@@ -14,6 +15,7 @@ abstract class AppRouter {
   static const kRegisterView = '/registerView';
   static const kExerciseView = '/exerciseView';
   static const kVideoPlayerView = '/videoPlayerView';
+  static const kDoctorView = '/doctorView';
 
   static final router = GoRouter(
     routes: <RouteBase>[
@@ -55,6 +57,12 @@ abstract class AppRouter {
           return  VideoPlayerView(
             videoUrl: state.extra as String,
           );
+        },
+      ),
+      GoRoute(
+        path: kDoctorView,
+        builder: (BuildContext context, GoRouterState state) {
+          return  DoctorView();
         },
       ),
 

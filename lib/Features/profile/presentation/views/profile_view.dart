@@ -37,23 +37,22 @@ class ProfileView extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   var userData = snapshot.data?.data() as Map<String, dynamic>;
-
                   return Column(
                     children: [
                       Text(
                         FirebaseAuth.instance.currentUser!.email.toString(),
                         style: Styles.textStyle16,
                       ),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 15),
                       const CustomAlignText(text: 'الاسم'),
                       const SizedBox(height: 5),
                       CustomContainer(
                         text: userData['username'].toString(),
                       ),
-                      const SizedBox(height: 32),
                       userData['phoneNumber'] == "" ? const SizedBox() :
                       Column(
                         children: [
+                          const SizedBox(height: 15),
                           const CustomAlignText(text: 'رقم الهاتف'),
                           const SizedBox(height: 5),
                           CustomContainer(
@@ -62,7 +61,7 @@ class ProfileView extends StatelessWidget {
                         ],
                       ),
 
-                      const SizedBox(height: 32),
+                      const SizedBox(height: 30),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: CustomMaterialButton(

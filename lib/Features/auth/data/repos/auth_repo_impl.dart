@@ -63,7 +63,7 @@ class AuthRepoImplementation implements AuthRepo {
 
       if (googleSignInAccount == null) {
         // User canceled Google Sign In
-        return left("User canceled Google Sign In");
+        return left("فشل تسجيل الدخول باستخدام جوجل برجاء اعادة المحاولة");
       }
 
       final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;

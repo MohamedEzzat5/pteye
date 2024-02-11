@@ -101,7 +101,6 @@ class CustomFormField extends StatelessWidget {
         validator: (data){ if (data!.isEmpty) {
           return 'من فضلك ادخل البيانات';
         }
-        return '';
         },
         keyboardType: keyboardType,
         onFieldSubmitted: onFieldSubmitted,

@@ -47,9 +47,12 @@ class CustomExerciseGridViewItem extends StatelessWidget {
             const SizedBox(
               height: 2,
             ),
-            Text(textAlign: TextAlign.center,
-              exerciseName,maxLines: 2,
-              style:  Styles.textStyle16.copyWith(fontWeight: FontWeight.w600,overflow:TextOverflow.ellipsis,),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(textAlign: TextAlign.center,
+                exerciseName,maxLines: 2,
+                style:  Styles.textStyle14.copyWith(fontWeight: FontWeight.w600,overflow:TextOverflow.ellipsis,),
+              ),
             ),
             const Spacer(flex: 1),
           ],

@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pteye/Features/auth/presentation/manger/login_cubit/login_cubit.dart';
@@ -30,11 +31,16 @@ class LoginViewBody extends StatelessWidget {
     bool isLoaded = false;
     var height = MediaQuery.of(context).size.height;
     return BlocConsumer<LoginCubit, LoginState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is LoginLoading) {
           isLoaded = true;
         } else if (state is LoginSuccess) {
-          GoRouter.of(context).push(AppRouter.kHomeView);
+          if( await FirebaseAuth.instance.currentUser!.uid == doctorId){
+            GoRouter.of(context).push(AppRouter.kDoctorView);
+          }else{
+            GoRouter.of(context).push(AppRouter.kHomeView);
+          }
+
           isLoaded = false;
         } else if (state is LoginFailure) {
           isLoaded = false;

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pteye/Features/splash/presentation/views/widgets/sliding_text.dart';
 import 'package:pteye/core/utils/app_router.dart';
 import 'package:pteye/core/utils/assets.dart';
+import 'package:pteye/core/utils/constance.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -46,13 +47,20 @@ class _SplashViewBodyState extends State<SplashViewBody>
   }
 
   // function to navigate to home in init state
-  void navigateToHome() {
-    FirebaseAuth.instance.currentUser == null ?
-    Future.delayed(const Duration(seconds: 3), () {
-      GoRouter.of(context).push(AppRouter.kLoginView);
-    }) : Future.delayed(const Duration(seconds: 3), () {
-      GoRouter.of(context).push(AppRouter.kHomeView);
-    }) ;
+  Future<void> navigateToHome() async {
+    if (await FirebaseAuth.instance.currentUser == null) {
+      Future.delayed(const Duration(seconds: 3), () {
+        GoRouter.of(context).push(AppRouter.kLoginView);
+      });
+    } else if( await FirebaseAuth.instance.currentUser!.uid ==doctorId){
+      Future.delayed(const Duration(seconds: 3), () {
+        GoRouter.of(context).push(AppRouter.kDoctorView);
+      });
+    }else{
+      Future.delayed(const Duration(seconds: 3), () {
+        GoRouter.of(context).push(AppRouter.kHomeView);
+      });
+    }
   }
 
 // in init function => sliding animation.

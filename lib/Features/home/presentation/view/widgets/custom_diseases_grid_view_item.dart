@@ -19,6 +19,8 @@ class CustomGridViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //var height = MediaQuery.of(context).size.height;
+    var width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: () {
         //{'diseaseName': diseaseName}
@@ -31,11 +33,11 @@ class CustomGridViewItem extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const Spacer(
-              flex: 1,
-            ),
+            // const Spacer(
+            //   flex: 1,
+            // ),
             AspectRatio(
-              aspectRatio: 1.8 / 1.3,
+              aspectRatio: width/14.5 / 20,
               child: Container(
                 margin: const EdgeInsets.all(10),
                 // decoration: BoxDecoration(
@@ -53,28 +55,27 @@ class CustomGridViewItem extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                       image: DecorationImage(
                           image: imageProvider,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
+                        //scale: 6
                           ),
                     ),
                   ),
                 ),
               ),
             ),
-            const SizedBox(
-              height: 2,
-            ),
+                SizedBox(height: 4,),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
                 textAlign: TextAlign.center,
                 diseaseName,
                 maxLines: 2,
-                style: Styles.textStyle16.copyWith(fontWeight: FontWeight.w600,overflow:TextOverflow.ellipsis,),
+                style: Styles.textStyle14.copyWith(fontWeight: FontWeight.w600,overflow:TextOverflow.ellipsis,height: 1.2),
               ),
             ),
-            const Spacer(
-              flex: 2,
-            ),
+            // const Spacer(
+            //   flex: 1,
+            // ),
           ],
         ),
       ),

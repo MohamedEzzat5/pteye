@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pteye/core/utils/constance.dart';
+import 'package:pteye/core/utils/media_query_values.dart';
 import 'package:pteye/core/utils/style.dart';
 import 'package:pteye/generated/assets.dart';
 
@@ -21,11 +22,11 @@ class HelloContainer extends StatelessWidget {
             return Container(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               margin: const EdgeInsets.all(16),
-              height: 120,
+              height: context.height*0.11,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: kPrimaryColor,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(10),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

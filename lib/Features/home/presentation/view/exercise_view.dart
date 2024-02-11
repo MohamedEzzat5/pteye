@@ -31,7 +31,7 @@ class ExerciseView extends StatelessWidget {
             } else if (state is ExerciseLoaded) {
               return CustomExerciseGridView(exerciseVideos: state.exerciseVideos);
             } else if (state is ExerciseError) {
-              return const Center(child: Text('قم بالتأكد من الاتصال بالانترنت'));
+              return  Center(child: Text('قم بالتأكد من الاتصال بالانترنت',style: Styles.textStyle20.copyWith(color: Colors.black),));
             } else {
               return const SizedBox();
             }

@@ -11,7 +11,7 @@ final String text;
         alignment: AlignmentDirectional.centerEnd,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text(text,style: Styles.textStyle18,),
+          child: Text(text,style: Styles.textStyle16.copyWith(fontWeight: FontWeight.w700),),
         ));
   }
 }

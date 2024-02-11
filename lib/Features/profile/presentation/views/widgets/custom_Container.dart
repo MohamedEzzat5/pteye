@@ -16,7 +16,7 @@ final String text;
           color: Colors.white,
           borderRadius: BorderRadius.circular(12)
       ),
-      child:  Text(text,style: Styles.textStyle16,),
+      child:  Text(text,style: Styles.textStyle16.copyWith(),),
     );
   }
 }
