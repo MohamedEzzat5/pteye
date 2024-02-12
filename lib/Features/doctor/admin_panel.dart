@@ -45,7 +45,6 @@ class DoctorView extends StatelessWidget {
                 if (userId == doctorId) {
                   return SizedBox();
                 }
-
                 return GestureDetector(
                   onTap: () {
                   },
