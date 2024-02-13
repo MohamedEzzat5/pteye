@@ -149,7 +149,7 @@ class RegisterViewBody extends StatelessWidget {
                         onChanged: (data) {
                           passwordController.text = data;
                         },
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.visiblePassword,
                         obscureText: true,
                         maxLines: 1,
                         hintText: 'كلمة المرور',

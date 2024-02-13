@@ -127,7 +127,7 @@ class LoginViewBody extends StatelessWidget {
                         ),
                         CustomFormField(
                           controller: passwordController,
-                          keyboardType: TextInputType.text,
+                          keyboardType: TextInputType.visiblePassword,
                           obscureText: true,
                           maxLines: 1,
                           hintText: 'كلمة المرور',
