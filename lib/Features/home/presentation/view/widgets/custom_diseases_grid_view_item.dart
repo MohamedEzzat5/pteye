@@ -50,6 +50,10 @@ class CustomGridViewItem extends StatelessWidget {
                 child: CachedNetworkImage(
                   imageUrl: imageUrl,
                   placeholder: (context, url) => const SpinKitFadingGrid(color: kPrimaryColor),
+                  errorWidget: (context, url, error) {
+                    print('================' + error.toString() + '================' + imageUrl);
+                    return Icon(Icons.error_rounded,color: kPrimaryColor,);
+                  },
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),

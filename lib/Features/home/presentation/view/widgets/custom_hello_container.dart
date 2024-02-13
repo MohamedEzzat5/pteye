@@ -37,7 +37,7 @@ class HelloContainer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        '${userData['username']} أهلاً بك ',
+                        'أهلاً بك '+userData['username'],
                         style: Styles.textStyle18.copyWith(color: Colors.white),
                       ),
                       Text(

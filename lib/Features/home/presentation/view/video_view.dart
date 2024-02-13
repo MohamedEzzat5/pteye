@@ -122,7 +122,11 @@ class VideoPlayerViewState extends State<VideoPlayerView> {
       autoInitialize: true,
       showControlsOnInitialize: false,
       showControls: true,
-      errorBuilder: (context, errorMessage) => Center(child: Text('برجاء التأكد من الاتصال بالانترنت',style: Styles.textStyle20.copyWith(color: Colors.white),)),
+      errorBuilder: (context, errorMessage) {
+        print('=================' + errorMessage.toString());
+        return Center(child: Text('برجاء التأكد من الاتصال بالانترنت',style: Styles.textStyle20.copyWith(color: Colors.white),));
+
+        },
     );
 
   }
