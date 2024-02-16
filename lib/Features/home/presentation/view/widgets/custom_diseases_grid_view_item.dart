@@ -48,10 +48,10 @@ class CustomGridViewItem extends StatelessWidget {
                 //   )),
                 // ),
                 child: CachedNetworkImage(
-                  imageUrl: imageUrl,
+                  imageUrl: '$imageUrl',
                   placeholder: (context, url) => const SpinKitFadingGrid(color: kPrimaryColor),
                   errorWidget: (context, url, error) {
-                    print('================' + error.toString() + '================' + imageUrl);
+                    debugPrint('================' + error.toString() + '================' + imageUrl);
                     return Icon(Icons.error_rounded,color: kPrimaryColor,);
                   },
                   imageBuilder: (context, imageProvider) => Container(
@@ -67,7 +67,7 @@ class CustomGridViewItem extends StatelessWidget {
                 ),
               ),
             ),
-                SizedBox(height: 4,),
+                SizedBox(height: 2,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Text(
