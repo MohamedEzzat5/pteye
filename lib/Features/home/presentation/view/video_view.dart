@@ -71,10 +71,6 @@
 //   }
 // }
 
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:pteye/core/utils/constance.dart';
@@ -95,15 +91,24 @@ class VideoPlayerViewState extends State<VideoPlayerView> {
   void initState() {
     super.initState();
     _youtubePlayerController = YoutubePlayerController(
-      initialVideoId: YoutubePlayer.convertUrlToId(widget.videoUrl)!,
-      flags: YoutubePlayerFlags(
+      initialVideoId: YoutubePlayer.convertUrlToId(widget.videoUrl) ?? 'X7xtJIRF0NI',
+      flags: const YoutubePlayerFlags(
         autoPlay: false,
         mute: false,
-        loop: false,
+        loop: true,
         hideThumbnail: true,
-
+        isLive: false,
+        forceHD: false,
+        useHybridComposition: false,
       ),
     );
+  }
+
+  @override
+  void deactivate() {
+    // Pauses video while navigating to next page.
+    _youtubePlayerController.pause();
+    super.deactivate();
   }
 
   @override
@@ -115,32 +120,35 @@ class VideoPlayerViewState extends State<VideoPlayerView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
         iconTheme: const IconThemeData(color: kPrimaryColor),
         centerTitle: true,
-        title: Text('',style: TextStyle(color: kPrimaryColor),),
       ),
-      body: Center(
-        child: YoutubePlayer(
-          controller: _youtubePlayerController,
-          showVideoProgressIndicator: true,
-          progressColors: ProgressBarColors(playedColor: kPrimaryColor,handleColor: kPrimaryColor),
-          progressIndicatorColor: kPrimaryColor,
-          bottomActions: [
-            CurrentPosition(),
-            ProgressBar(
-              isExpanded: true,
-              colors: ProgressBarColors(
-                playedColor: kPrimaryColor,
-                handleColor: kPrimaryColor,
+      body: Column(
+        children: [
+          YoutubePlayer(
+            aspectRatio: 16 / 9,
+            controller: _youtubePlayerController,
+            showVideoProgressIndicator: true,
+            progressColors: const ProgressBarColors(
+                playedColor: kPrimaryColor, handleColor: kPrimaryColor),
+            progressIndicatorColor: kPrimaryColor,
+            bottomActions: [
+              CurrentPosition(),
+              ProgressBar(
+                isExpanded: true,
+                colors: const ProgressBarColors(
+                  playedColor: kPrimaryColor,
+                  handleColor: kPrimaryColor,
+                ),
               ),
-            ),
-            RemainingDuration(),
-            FullScreenButton(controller: _youtubePlayerController),
+              RemainingDuration(),
 
-          ],
-        ),
+            ],
+          ),
+          //const RecordAndPlayVoice(),
+
+        ],
       ),
     );
   }

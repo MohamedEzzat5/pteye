@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pteye/core/utils/constance.dart';
-import 'package:pteye/core/utils/media_query_values.dart';
 import 'package:pteye/core/utils/style.dart';
 import 'package:pteye/generated/assets.dart';
 
@@ -20,9 +19,8 @@ class HelloContainer extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.done) {
             var userData = snapshot.data?.data() as Map<String, dynamic>;
             return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 20),
               margin: const EdgeInsets.all(16),
-              height: context.height*0.11,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: kPrimaryColor,
@@ -37,7 +35,7 @@ class HelloContainer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        'أهلاً بك '+userData['username'],
+                        '${userData['username']} أهلاً بك',
                         style: Styles.textStyle18.copyWith(color: Colors.white),
                       ),
                       Text(
