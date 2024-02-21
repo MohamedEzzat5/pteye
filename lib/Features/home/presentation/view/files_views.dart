@@ -11,7 +11,7 @@ class FilesView extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          CustomAppBar(appBarTitle: 'ملفاتك'),
+          const CustomAppBar(appBarTitle: 'ملفاتك'),
 
           Padding(
             padding: const EdgeInsets.all(15.0),

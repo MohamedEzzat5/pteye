@@ -48,11 +48,11 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
   // function to navigate to home in init state
   Future<void> navigateToHome() async {
-    if (await FirebaseAuth.instance.currentUser == null) {
+    if (FirebaseAuth.instance.currentUser == null) {
       Future.delayed(const Duration(seconds: 3), () {
         GoRouter.of(context).push(AppRouter.kLoginView);
       });
-    } else if( await FirebaseAuth.instance.currentUser!.uid ==doctorId){
+    } else if( FirebaseAuth.instance.currentUser!.uid ==doctorId){
       Future.delayed(const Duration(seconds: 3), () {
         GoRouter.of(context).push(AppRouter.kDoctorView);
       });

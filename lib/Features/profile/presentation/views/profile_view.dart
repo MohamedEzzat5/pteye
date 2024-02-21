@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:pteye/Features/profile/presentation/views/widgets/custom_Container.dart';
+import 'package:pteye/Features/profile/presentation/views/widgets/custom_container.dart';
 import 'package:pteye/Features/profile/presentation/views/widgets/custom_align_text.dart';
 import 'package:pteye/Features/profile/presentation/views/widgets/custom_avatar.dart';
 import 'package:pteye/core/utils/app_router.dart';
@@ -46,7 +46,7 @@ class ProfileView extends StatelessWidget {
                       const SizedBox(height: 15),
                       const CustomAlignText(text: 'الاسم'),
                       const SizedBox(height: 5),
-                      CustomContainer(
+                      CustomProfileContainer(
                         text: userData['username'].toString(),
                       ),
                       userData['phoneNumber'] == "" ? const SizedBox() :
@@ -55,7 +55,7 @@ class ProfileView extends StatelessWidget {
                           const SizedBox(height: 15),
                           const CustomAlignText(text: 'رقم الهاتف'),
                           const SizedBox(height: 5),
-                          CustomContainer(
+                          CustomProfileContainer(
                             text: userData['phoneNumber'].toString() ,
                           ),
                         ],

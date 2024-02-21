@@ -72,6 +72,7 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:pteye/Features/home/presentation/view/widgets/record_voice.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:pteye/core/utils/constance.dart';
 
@@ -116,7 +117,6 @@ class VideoPlayerViewState extends State<VideoPlayerView> {
     _youtubePlayerController.dispose();
     super.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,7 +146,8 @@ class VideoPlayerViewState extends State<VideoPlayerView> {
 
             ],
           ),
-          //const RecordAndPlayVoice(),
+          const SizedBox(height: 20,),
+          const RecordAndPlayVoice(),
 
         ],
       ),

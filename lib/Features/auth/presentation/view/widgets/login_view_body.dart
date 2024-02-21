@@ -38,8 +38,8 @@ class LoginViewBody extends StatelessWidget {
               actions: [
                 TextButton(onPressed: (){type = false ;
                 Navigator.pop(context);
-                }, child: Text('لا',style: Styles.textStyle16)),
-                TextButton(onPressed: (){type = true ; SystemNavigator.pop();}, child: Text('نعم',style: Styles.textStyle16,)),
+                }, child: const Text('لا',style: Styles.textStyle16)),
+                TextButton(onPressed: (){type = true ; SystemNavigator.pop();}, child: const Text('نعم',style: Styles.textStyle16,)),
 
               ],
             );
@@ -56,7 +56,7 @@ class LoginViewBody extends StatelessWidget {
         if (state is LoginLoading) {
           isLoaded = true;
         } else if (state is LoginSuccess) {
-          if( await FirebaseAuth.instance.currentUser!.uid == doctorId){
+          if( FirebaseAuth.instance.currentUser!.uid == doctorId){
             GoRouter.of(context).push(AppRouter.kDoctorView);
           }else{
             GoRouter.of(context).push(AppRouter.kHomeView);

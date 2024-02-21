@@ -1,9 +1,9 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pteye/Features/auth/presentation/view/login_view.dart';
 import 'package:pteye/Features/auth/presentation/view/register_view.dart';
-import 'package:pteye/Features/doctor/admin_panel.dart';
+import 'package:pteye/Features/doctor/presentation/screens/admin_video_screen.dart';
+import 'package:pteye/Features/doctor/presentation/screens/admin_panel.dart';
 import 'package:pteye/Features/home/presentation/view/exercise_view.dart';
 import 'package:pteye/Features/home/presentation/view/home_view.dart';
 import 'package:pteye/Features/home/presentation/view/video_view.dart';
@@ -16,6 +16,7 @@ abstract class AppRouter {
   static const kExerciseView = '/exerciseView';
   static const kVideoPlayerView = '/videoPlayerView';
   static const kDoctorView = '/doctorView';
+  static const kDoctorVideoView = '/doctorVideoView';
 
   static final router = GoRouter(
     routes: <RouteBase>[
@@ -28,7 +29,7 @@ abstract class AppRouter {
       GoRoute(
         path: kHomeView,
         builder: (BuildContext context, GoRouterState state) {
-          return HomeView();
+          return const HomeView();
         },
       ),
       GoRoute(
@@ -62,7 +63,13 @@ abstract class AppRouter {
       GoRoute(
         path: kDoctorView,
         builder: (BuildContext context, GoRouterState state) {
-          return  DoctorView();
+          return  const DoctorView();
+        },
+      ),
+      GoRoute(
+        path: kDoctorVideoView,
+        builder: (BuildContext context, GoRouterState state) {
+          return   const AdminVideoScreen();
         },
       ),
 

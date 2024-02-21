@@ -9,7 +9,7 @@ import 'package:pteye/core/utils/media_query_values.dart';
 import 'package:pteye/core/utils/style.dart';
 
 class DoctorView extends StatelessWidget {
-  const DoctorView({Key? key});
+  const DoctorView({super.key,});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class DoctorView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Panel'),
+        title: const Text('Admin Panel'),
         automaticallyImplyLeading: false,
         elevation: 0,
         actions: [
@@ -28,7 +28,7 @@ class DoctorView extends StatelessWidget {
               FirebaseAuth.instance.signOut();
               navigateToLogin();
             },
-            icon: Icon(Icons.logout_rounded),
+            icon: const Icon(Icons.logout_rounded),
           )
         ],
       ),
@@ -43,10 +43,11 @@ class DoctorView extends StatelessWidget {
                 final document = snapshot.data!.docs[index];
                 final String userId = document.id;
                 if (userId == doctorId) {
-                  return SizedBox();
+                  return const SizedBox();
                 }
                 return GestureDetector(
                   onTap: () {
+                    GoRouter.of(context).push(AppRouter.kDoctorVideoView,);
                   },
                   child: Container(
                     width: double.infinity,
@@ -80,7 +81,7 @@ class DoctorView extends StatelessWidget {
               },
             );
           } else {
-            return SpinKitFadingCircle(
+            return const SpinKitFadingCircle(
               color: kPrimaryColor,
             );
           }

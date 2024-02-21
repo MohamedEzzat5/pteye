@@ -7,7 +7,7 @@
         android:label="PT eye"
         android:name="${applicationName}"
         android:usesCleartextTraffic="true"
-        android:icon="@mipmap/launcher_icon"
+        android:icon="@mipmap/icon"
         android:enableOnBackInvokedCallback="true">
         <activity
             android:name=".MainActivity"
