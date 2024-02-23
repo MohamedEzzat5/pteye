@@ -72,7 +72,6 @@
 // }
 
 import 'package:flutter/material.dart';
-import 'package:pteye/Features/home/presentation/view/widgets/record_voice.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:pteye/core/utils/constance.dart';
 
@@ -124,32 +123,27 @@ class VideoPlayerViewState extends State<VideoPlayerView> {
         iconTheme: const IconThemeData(color: kPrimaryColor),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          YoutubePlayer(
-            aspectRatio: 16 / 9,
-            controller: _youtubePlayerController,
-            showVideoProgressIndicator: true,
-            progressColors: const ProgressBarColors(
-                playedColor: kPrimaryColor, handleColor: kPrimaryColor),
-            progressIndicatorColor: kPrimaryColor,
-            bottomActions: [
-              CurrentPosition(),
-              ProgressBar(
-                isExpanded: true,
-                colors: const ProgressBarColors(
-                  playedColor: kPrimaryColor,
-                  handleColor: kPrimaryColor,
-                ),
+      body: Center(
+        child: YoutubePlayer(
+          aspectRatio: 16 / 9,
+          controller: _youtubePlayerController,
+          showVideoProgressIndicator: true,
+          progressColors: const ProgressBarColors(
+              playedColor: kPrimaryColor, handleColor: kPrimaryColor),
+          progressIndicatorColor: kPrimaryColor,
+          bottomActions: [
+            CurrentPosition(),
+            ProgressBar(
+              isExpanded: true,
+              colors: const ProgressBarColors(
+                playedColor: kPrimaryColor,
+                handleColor: kPrimaryColor,
               ),
-              RemainingDuration(),
+            ),
+            RemainingDuration(),
 
-            ],
-          ),
-          const SizedBox(height: 20,),
-          const RecordAndPlayVoice(),
-
-        ],
+          ],
+        ),
       ),
     );
   }

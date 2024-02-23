@@ -1,40 +1,59 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:pteye/Features/doctor/cubit.dart';
 import '../../../../core/utils/constance.dart';
 import '../../../../core/widgets/default_text.dart';
-class AdminVideoScreen extends StatefulWidget {
-  const AdminVideoScreen({Key? key}) : super(key: key);
+
+class AdminVideoScreen extends StatelessWidget {
+  const AdminVideoScreen({Key? key, required this.userId}) : super(key: key);
+  final String userId;
 
   @override
-  _AdminVideoScreenState createState() => _AdminVideoScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => SelectedExercisesCubit(),
+      child: _AdminVideoScreenContent(userId: userId),
+    );
+  }
 }
 
-class _AdminVideoScreenState extends State<AdminVideoScreen> {
-  final Set<String> _selectedExercises = {};
+class _AdminVideoScreenContent extends StatelessWidget {
+  final String userId;
+
+  const _AdminVideoScreenContent({Key? key, required this.userId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: kPrimaryColor),
-        title: const Text('Exercises'),
+        title: Text(userId),
         actions: [
-          if (_selectedExercises.isNotEmpty)
-            IconButton(
-              onPressed: () {
-                // Handle saving selected items
-                if (kDebugMode) {
-                  print('Selected Exercises: $_selectedExercises');
-                }
-                // Clear selected items
-                setState(() {
-                  _selectedExercises.clear();
-                });
-              },
-              icon: const Icon(Icons.check),
-            ),
+          BlocBuilder<SelectedExercisesCubit, Set<String>>(
+            builder: (context, selectedExercises) {
+              if (selectedExercises.isNotEmpty) {
+                return IconButton(
+                  onPressed: () {
+                    // Handle saving selected items
+                    if (kDebugMode) {
+                      print('Selected Exercises: $selectedExercises');
+                    }
+                    // Clear selected items
+                    context
+                        .read<SelectedExercisesCubit>()
+                        .clearSelectedExercises();
+                  },
+                  icon: const Icon(Icons.check),
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
+            },
+          ),
         ],
       ),
       body: FutureBuilder(
@@ -42,7 +61,9 @@ class _AdminVideoScreenState extends State<AdminVideoScreen> {
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: SpinKitFadingCircle(color: kPrimaryColor,),
+              child: SpinKitFadingCircle(
+                color: kPrimaryColor,
+              ),
             );
           } else if (snapshot.hasError) {
             return Center(
@@ -51,11 +72,13 @@ class _AdminVideoScreenState extends State<AdminVideoScreen> {
           } else {
             final docs = snapshot.data!.docs;
             final List<String> exerciseNames = [];
+            //final List<String> exerciseLink =[];
 
             for (final doc in docs) {
               final videos = doc['videos'] as List<dynamic>;
               for (final video in videos) {
                 exerciseNames.add(video['exerciseName']);
+                // exerciseLink.add(video['link']);
               }
             }
 
@@ -71,32 +94,37 @@ class _AdminVideoScreenState extends State<AdminVideoScreen> {
               itemCount: exerciseNames.length,
               itemBuilder: (context, index) {
                 final exerciseName = exerciseNames[index];
-                final isSelected = _selectedExercises.contains(exerciseName);
                 return GestureDetector(
                   onTap: () {
-                    setState(() {
-                      if (isSelected) {
-                        _selectedExercises.remove(exerciseName);
-                      } else {
-                        _selectedExercises.add(exerciseName);
-                      }
-                    });
+                    final isSelected = context
+                        .read<SelectedExercisesCubit>()
+                        .state
+                        .contains(exerciseName);
+                    context
+                        .read<SelectedExercisesCubit>()
+                        .toggleExercise(exerciseName, isSelected);
                   },
-                  child: Card(
-                    elevation: 3,
-                    color: isSelected ? Colors.blue.withOpacity(0.5) : null,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Center(
-                        child: DefaultText(
-                          text: exerciseName,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          maxLines: 4,
-                          textAlign: TextAlign.center,
+                  child: BlocBuilder<SelectedExercisesCubit, Set<String>>(
+                    builder: (context, selectedExercises) {
+                      final isSelected =
+                          selectedExercises.contains(exerciseName);
+                      return Card(
+                        elevation: 3,
+                        color: isSelected ? Colors.blue.withOpacity(0.5) : null,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Center(
+                            child: DefaultText(
+                              text: exerciseName,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              maxLines: 4,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 );
               },

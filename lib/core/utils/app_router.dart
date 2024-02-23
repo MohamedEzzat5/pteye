@@ -69,7 +69,9 @@ abstract class AppRouter {
       GoRoute(
         path: kDoctorVideoView,
         builder: (BuildContext context, GoRouterState state) {
-          return   const AdminVideoScreen();
+          return   AdminVideoScreen(
+            userId: state.extra as String,
+          );
         },
       ),
 

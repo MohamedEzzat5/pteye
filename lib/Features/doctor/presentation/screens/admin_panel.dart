@@ -39,6 +39,7 @@ class DoctorView extends StatelessWidget {
             return ListView.builder(
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
+
                 final int displayIndex = index + 1;
                 final document = snapshot.data!.docs[index];
                 final String userId = document.id;
@@ -47,7 +48,7 @@ class DoctorView extends StatelessWidget {
                 }
                 return GestureDetector(
                   onTap: () {
-                    GoRouter.of(context).push(AppRouter.kDoctorVideoView,);
+                    GoRouter.of(context).push(AppRouter.kDoctorVideoView,extra: userId);
                   },
                   child: Container(
                     width: double.infinity,

@@ -31,38 +31,13 @@ class AuthRepoImplementation implements AuthRepo {
   }
 
 
-  @override
-  // Future<Either<String, Unit>> loginWithGoogle() async {
-  //   try {
-  //     final GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
-  //
-  //     if (googleSignInAccount == null) {
-  //       return left('تم الغاء تسجيل الدخول بواسطه جوجل');
-  //     }
-  //
-  //     final GoogleSignInAuthentication googleSignInAuthentication =
-  //     await googleSignInAccount.authentication;
-  //     final AuthCredential credential = GoogleAuthProvider.credential(
-  //       accessToken: googleSignInAuthentication.accessToken,
-  //       idToken: googleSignInAuthentication.idToken,
-  //     );
-  //
-  //     await FirebaseAuth.instance.signInWithCredential(credential);
-  //
-  //     return right(unit);
-  //   } on FirebaseAuthException catch (e) {
-  //     return left(FirebaseAuthExceptionHandler.handleException(e));
-  //   } catch (e) {
-  //     return left('Google login failed: $e');
-  //   }
-  // }
+
   @override
   Future<Either<String, UserCredential?>> signUpWithGoogle() async {
     try {
       final GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
 
       if (googleSignInAccount == null) {
-        // User canceled Google Sign In
         return left("فشل تسجيل الدخول باستخدام جوجل برجاء اعادة المحاولة");
       }
 
@@ -100,7 +75,7 @@ class AuthRepoImplementation implements AuthRepo {
         // If the user doesn't exist, add their details to Firestore
         await usersCollection.doc(user.uid).set({
           'email': user.email,
-          'username': user.displayName ?? 'User', // You may need to adjust this based on your user data
+          'username': user.displayName ?? '', // You may need to adjust this based on your user data
           'phoneNumber': user.phoneNumber ?? '', // You may need to adjust this based on your user data
         });
       }

@@ -4,6 +4,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:pteye/Features/home/presentation/view/files_views.dart';
 import 'package:pteye/Features/home/presentation/view/widgets/home_view_body.dart';
 import 'package:pteye/Features/profile/presentation/views/profile_view.dart';
+import 'package:pteye/core/utils/constance.dart';
 
 class CustomNavBar extends StatelessWidget {
    CustomNavBar({super.key});
@@ -38,7 +39,7 @@ class CustomNavBar extends StatelessWidget {
         curve: Curves.ease,
         duration: Duration(milliseconds: 100),
       ),
-      navBarStyle: NavBarStyle.style9,navBarHeight: 55,padding:const NavBarPadding.symmetric(horizontal: 5), // Choose the nav bar style with this property.
+      navBarStyle: NavBarStyle.style9,navBarHeight: 55,padding:const NavBarPadding.symmetric(horizontal: 0), // Choose the nav bar style with this property.
     );
   }
 
@@ -53,21 +54,24 @@ class CustomNavBar extends StatelessWidget {
     return [
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.home),
+        textStyle: const TextStyle(fontSize: 14,fontWeight: FontWeight.w600),
         title: ("الرئيسية"),
-        activeColorPrimary: CupertinoColors.activeBlue,
+        activeColorPrimary: kPrimaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
 
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.folder),
+        textStyle: const TextStyle(fontSize: 14,fontWeight: FontWeight.w600),
         title: ("ملفاتك"),
-        activeColorPrimary: CupertinoColors.activeBlue,
+        activeColorPrimary: kPrimaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.settings),
-        title: ("الاعدادات"),
-        activeColorPrimary: CupertinoColors.activeBlue,
+        textStyle: const TextStyle(fontSize: 14,fontWeight: FontWeight.w600),
+        title: ("الإعدادات"),
+        activeColorPrimary: kPrimaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
 
