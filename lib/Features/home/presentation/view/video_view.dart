@@ -119,6 +119,7 @@ class VideoPlayerViewState extends State<VideoPlayerView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         iconTheme: const IconThemeData(color: kPrimaryColor),
         centerTitle: true,
