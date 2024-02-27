@@ -1,39 +1,41 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pteye/Features/home/presentation/manger/files_cubit/files_state.dart';
 
 class FilesCubit extends Cubit<FilesState> {
   FilesCubit() : super(FilesInitial());
-  Future<String?> fetchUserId() async {
+
+  void fetchSelectedItems() async {
+    emit(FilesInitial());
+    final currentUserId = FirebaseAuth.instance.currentUser!.uid;
     try {
-      final userDoc = await FirebaseFirestore.instance.collection('users').doc().get();
-      return userDoc.id;
-    } catch (e) {
-      if (kDebugMode) {
-        print('Error fetching user ID: $e');
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+      await FirebaseFirestore.instance
+          .collection('selected_items')
+          .where(FieldPath.documentId, isEqualTo: currentUserId)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        // Document with ID equal to currentUserId found
+        Map<String, dynamic> selectedItems = querySnapshot.docs.first.data();
+        List<Map<String, dynamic>> videos =
+        List<Map<String, dynamic>>.from(selectedItems['selectedItems']);
+        emit(FilesLoaded(selectedItems: videos));
+      }else if(querySnapshot.docs.isEmpty){
+        emit(FilesNoData());
       }
-      return null;
-    }
-  }
-  void fetchSelectedItems(String userId) async {
-    emit(FilesLoading());
-    try {
-      final DocumentSnapshot<Map<String, dynamic>> userSnapshot =
-      await FirebaseFirestore.instance.collection('users').doc().get();
-      final data = userSnapshot.data();
-      if (data != null && data.containsKey('selectedItems')) {
-        final List<Map<String, dynamic>> selectedItems =
-        List<Map<String, dynamic>>.from(data['selectedItems']);
-        emit(FilesLoaded(selectedItems: selectedItems));
-      } else {
+
+      else {
+        // Document with ID equal to currentUserId not found
         emit(FilesLoaded(selectedItems: const []));
       }
     } catch (e) {
       if (kDebugMode) {
-        print('Error fetching selected items: $e');
+        print('Error fetching exercise videos: $e');
       }
-      emit(FilesError(error: 'Error fetching selected items: $e'));
+      emit(FilesError(error: 'لا يوجد ملفات حاليًا'));
     }
   }
 }

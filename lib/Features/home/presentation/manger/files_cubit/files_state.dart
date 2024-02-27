@@ -24,6 +24,10 @@ class FilesLoading extends FilesState {
   @override
   List<Object?> get props => [];
 }
+class FilesNoData extends FilesState {
+  @override
+  List<Object?> get props => [];
+}
 
 class FilesLoaded extends FilesState {
   final List<Map<String, dynamic>> selectedItems;

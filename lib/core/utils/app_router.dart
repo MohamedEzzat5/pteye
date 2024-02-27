@@ -5,6 +5,7 @@ import 'package:pteye/Features/auth/presentation/view/register_view.dart';
 import 'package:pteye/Features/doctor/presentation/screens/admin_video_screen.dart';
 import 'package:pteye/Features/doctor/presentation/screens/admin_panel.dart';
 import 'package:pteye/Features/home/presentation/view/exercise_view.dart';
+import 'package:pteye/Features/home/presentation/view/files_views.dart';
 import 'package:pteye/Features/home/presentation/view/home_view.dart';
 import 'package:pteye/Features/home/presentation/view/video_view.dart';
 import 'package:pteye/Features/splash/presentation/views/splash_view.dart';
@@ -12,6 +13,7 @@ import 'package:pteye/Features/splash/presentation/views/splash_view.dart';
 abstract class AppRouter {
   static const kHomeView = '/homeView';
   static const kLoginView = '/loginView';
+  static const kFilesView = '/filesView';
   static const kRegisterView = '/registerView';
   static const kExerciseView = '/exerciseView';
   static const kVideoPlayerView = '/videoPlayerView';
@@ -64,6 +66,12 @@ abstract class AppRouter {
         path: kDoctorView,
         builder: (BuildContext context, GoRouterState state) {
           return  const DoctorView();
+        },
+      ),
+      GoRoute(
+        path: kFilesView,
+        builder: (BuildContext context, GoRouterState state) {
+          return  const FilesView();
         },
       ),
       GoRoute(
