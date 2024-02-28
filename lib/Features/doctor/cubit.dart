@@ -17,3 +17,10 @@ class SelectedExercisesCubit extends Cubit<Set<String>> {
     emit({});
   }
 }
+
+
+class IsDoneCubit extends Cubit<bool> {
+  IsDoneCubit() : super(false);
+
+  void setIsDone(bool value) => emit(value);
+}

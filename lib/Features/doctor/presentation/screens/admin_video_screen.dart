@@ -33,17 +33,39 @@ class _AdminVideoScreenContent extends StatefulWidget {
 
 class _AdminVideoScreenContentState extends State<_AdminVideoScreenContent> {
   late Future<List<Map<String, String>>> _exercisesFuture;
+  bool _isDone = false;
 
   @override
   void initState() {
     super.initState();
     _exercisesFuture = fetchExercises();
+    // Fetch isDone status when the screen initializes
+    fetchIsDoneStatus();
+  }
+
+  Future<void> fetchIsDoneStatus() async {
+    try {
+      final DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('selected_items')
+          .doc(widget.userId)
+          .get();
+
+      if (snapshot.exists) {
+        setState(() {
+          _isDone = (snapshot.data() as Map<String, dynamic>?)?["isDone"] ?? false;
+        });
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print('Error fetching isDone status: $error');
+      }
+    }
   }
 
   Future<List<Map<String, String>>> fetchExercises() async {
     try {
       final QuerySnapshot snapshot =
-          await FirebaseFirestore.instance.collection('diseases').get();
+      await FirebaseFirestore.instance.collection('diseases').get();
       final List<Map<String, String>> fetchedExercises = [];
 
       for (final doc in snapshot.docs) {
@@ -76,23 +98,24 @@ class _AdminVideoScreenContentState extends State<_AdminVideoScreenContent> {
     try {
       // Reference to the "selected_items" collection
       final DocumentReference userDocRef =
-          FirebaseFirestore.instance.collection('selected_items').doc(userId);
+      FirebaseFirestore.instance.collection('selected_items').doc(userId);
 
       // Store selected items under the user's document
       await userDocRef.set({
-        'isDone':false,
+        'isDone': false,
         'selectedItems': selectedItems,
       });
 
       // Optional: You can add a confirmation message here if needed
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          showCloseIcon: true,
-          content: DefaultText(
-            text: 'تم اضافة التمارين بنجاح',
-            color: Colors.white,
-            fontSize: 14,
-            textAlign: TextAlign.right,
-          )));
+        showCloseIcon: true,
+        content: DefaultText(
+          text: 'تم اضافة التمارين بنجاح',
+          color: Colors.white,
+          fontSize: 14,
+          textAlign: TextAlign.right,
+        ),
+      ));
     } catch (error) {
       // Handle error
       if (kDebugMode) {
@@ -106,18 +129,19 @@ class _AdminVideoScreenContentState extends State<_AdminVideoScreenContent> {
     try {
       // Reference to the user's document in the "selected_items" collection
       final DocumentReference userDocRef =
-          FirebaseFirestore.instance.collection('selected_items').doc(userId);
+      FirebaseFirestore.instance.collection('selected_items').doc(userId);
 
       // Delete the document
       await userDocRef.delete();
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          showCloseIcon: true,
-          content: DefaultText(
-            text: 'تم ازالة التمارين بنجاح',
-            color: Colors.white,
-            fontSize: 14,
-            textAlign: TextAlign.right,
-          )));
+        showCloseIcon: true,
+        content: DefaultText(
+          text: 'تم ازالة التمارين بنجاح',
+          color: Colors.white,
+          fontSize: 14,
+          textAlign: TextAlign.right,
+        ),
+      ));
 
       // Optional: You can add a confirmation message here if needed
     } catch (error) {
@@ -155,7 +179,7 @@ class _AdminVideoScreenContentState extends State<_AdminVideoScreenContent> {
           return Scaffold(
             appBar: AppBar(
               iconTheme: const IconThemeData(color: kPrimaryColor),
-              title: Text(widget.userId),
+              title: _isDone ?const Text('Exercises Done',style: TextStyle(color: Colors.green),) : const Text('Exercises Not Done Yet',style: TextStyle(color: Colors.red),),
               actions: [
                 IconButton(
                   onPressed: () {
@@ -175,11 +199,11 @@ class _AdminVideoScreenContentState extends State<_AdminVideoScreenContent> {
 
                           // Retrieve selected items from state
                           final selectedItems =
-                              selectedExercises.map((exerciseName) {
+                          selectedExercises.map((exerciseName) {
                             // Find the exercise by name and retrieve its link from the original exercises list
                             final selectedExercise = exercises.firstWhere(
-                                (exercise) =>
-                                    exercise['exerciseName'] == exerciseName);
+                                    (exercise) =>
+                                exercise['exerciseName'] == exerciseName);
                             return selectedExercise;
                           }).toList();
 
@@ -227,7 +251,7 @@ class _AdminVideoScreenContentState extends State<_AdminVideoScreenContent> {
                   child: BlocBuilder<SelectedExercisesCubit, Set<String>>(
                     builder: (context, selectedExercises) {
                       final isSelected =
-                          selectedExercises.contains(exerciseName);
+                      selectedExercises.contains(exerciseName);
                       return Card(
                         elevation: 3,
                         color: isSelected ? Colors.blue.withOpacity(0.5) : null,

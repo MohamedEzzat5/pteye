@@ -25,7 +25,6 @@ class RegisterViewBody extends StatelessWidget {
   final TextEditingController phoneController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey();
 
-
   @override
   Widget build(BuildContext context) {
     bool isLoaded = false;
@@ -35,7 +34,9 @@ class RegisterViewBody extends StatelessWidget {
         if (state is RegisterLoading) {
           isLoaded = true;
         } else if (state is RegisterSuccess) {
-          GoRouter.of(context).push(AppRouter.kHomeView,);
+          GoRouter.of(context).push(
+            AppRouter.kHomeView,
+          );
           isLoaded = false;
         } else if (state is RegisterFailure) {
           isLoaded = false;
@@ -79,6 +80,7 @@ class RegisterViewBody extends StatelessWidget {
                       CustomFormField(
                         controller: nameController,
                         //focusNode: emailFocus,
+                        validator: (data) => 'من فضلك ادخل البيانات',
                         keyboardType: TextInputType.text,
                         hintText: 'اسم المستخدم',
                         textAlign: TextAlign.right,
@@ -86,14 +88,6 @@ class RegisterViewBody extends StatelessWidget {
                           Icons.person,
                           size: 22,
                         ),
-                        inputBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        inputFocusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: const BorderSide(
-                              color: kPrimaryColor,
-                            )),
                       ),
                       const SizedBox(
                         height: 15,
@@ -110,14 +104,6 @@ class RegisterViewBody extends StatelessWidget {
                           Icons.email,
                           size: 22,
                         ),
-                        inputBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        inputFocusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: const BorderSide(
-                              color: kPrimaryColor,
-                            )),
                       ),
                       const SizedBox(
                         height: 15,
@@ -132,14 +118,6 @@ class RegisterViewBody extends StatelessWidget {
                           Icons.phone_iphone,
                           size: 22,
                         ),
-                        inputBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        inputFocusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: const BorderSide(
-                              color: kPrimaryColor,
-                            )),
                       ),
                       const SizedBox(
                         height: 15,
@@ -158,14 +136,6 @@ class RegisterViewBody extends StatelessWidget {
                           Icons.lock,
                           size: 21,
                         ),
-                        inputBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        inputFocusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: const BorderSide(
-                              color: kPrimaryColor,
-                            )),
                       ),
                       const SizedBox(
                         height: 30,

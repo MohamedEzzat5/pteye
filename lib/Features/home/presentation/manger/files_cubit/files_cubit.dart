@@ -16,7 +16,6 @@ class FilesCubit extends Cubit<FilesState> {
           .collection('selected_items')
           .where(FieldPath.documentId, isEqualTo: currentUserId)
           .get();
-
       if (querySnapshot.docs.isNotEmpty) {
         // Document with ID equal to currentUserId found
         Map<String, dynamic> selectedItems = querySnapshot.docs.first.data();
@@ -38,4 +37,22 @@ class FilesCubit extends Cubit<FilesState> {
       emit(FilesError(error: 'لا يوجد ملفات حاليًا'));
     }
   }
+
+  Future<void> markItemAsDone() async {
+    try {
+      final currentUserId = FirebaseAuth.instance.currentUser!.uid;
+
+      await FirebaseFirestore.instance
+          .collection('selected_items')
+          .doc(currentUserId)
+          .update({'isDone': true});
+
+      // Emit a state to indicate the item has been marked as done
+      emit(ItemMarkedAsDone());
+    } catch (e) {
+      // Emit an error state if the update fails
+      emit(FilesError(error: 'Failed to mark item as done!'));
+    }
+  }
 }
+

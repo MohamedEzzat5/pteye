@@ -9,6 +9,7 @@ import 'package:pteye/core/utils/constance.dart';
 import 'package:pteye/core/utils/media_query_values.dart';
 import 'package:pteye/core/utils/style.dart';
 import 'package:pteye/core/widgets/custom_app_bar.dart';
+import 'package:pteye/core/widgets/default_button.dart';
 
 class FilesView extends StatelessWidget {
 
@@ -29,9 +30,25 @@ class FilesView extends StatelessWidget {
                     context.read<FilesCubit>().fetchSelectedItems();
                     return  const Center(child: SpinKitFadingCircle(color: kPrimaryColor,));
                   } else if (state is FilesLoaded) {
-                    return SizedBox(
-                        height: context.height/2.25,
-                        child: CustomSelectedItemsGridView(selectedItems: state.selectedItems));
+                    return Column(
+                      children: [
+                        SizedBox(
+                            height: context.height/2.25,
+                            child: CustomSelectedItemsGridView(selectedItems: state.selectedItems)),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: CustomMaterialButton(
+                            onPressed: () {
+                              context.read<FilesCubit>().markItemAsDone();
+                            },
+                            text: 'قمت بالتمارين',
+                            fontSize: 16,
+                            radius: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    );
                   } else if (state is FilesError) {
                     return  Text('لا يوجد ملفات حاليًا',style: Styles.textStyle20.copyWith(color: Colors.grey),);
                   }else if (state is FilesNoData) {
@@ -42,7 +59,7 @@ class FilesView extends StatelessWidget {
                 },
               ),
             ),
-            const SizedBox(height: 10,),
+
             const RecordAndPlayVoice(),
           ],
         ),

@@ -46,3 +46,7 @@ class FilesError extends FilesState {
   @override
   List<Object?> get props => [error];
 }
+class ItemMarkedAsDone extends FilesState {
+  @override
+  List<Object?> get props => [];
+}

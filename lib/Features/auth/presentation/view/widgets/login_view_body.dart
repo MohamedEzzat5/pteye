@@ -113,14 +113,6 @@ class LoginViewBody extends StatelessWidget {
                             Icons.email_outlined,
                             size: 22,
                           ),
-                          inputBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          inputFocusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: const BorderSide(
-                                color: kPrimaryColor,
-                              )),
                         ),
                         const SizedBox(
                           height: 15,
@@ -136,34 +128,10 @@ class LoginViewBody extends StatelessWidget {
                             Icons.lock_open_outlined,
                             size: 22,
                           ),
-                          inputBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          inputFocusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: const BorderSide(
-                                color: kPrimaryColor,
-                              )),
                         ),
                         const SizedBox(
                           height: 5,
                         ),
-                        // TextButton(
-                        //   onPressed: () {
-                        //     // Navigate back to the login page
-                        //   },
-                        //   child: const Row(
-                        //     mainAxisAlignment: MainAxisAlignment.end,
-                        //     children: [
-                        //       DefaultText(
-                        //         text: 'هل نسيت كلمة المرور؟',
-                        //         color: kPrimaryColor,
-                        //         fontSize: 15,
-                        //         fontWeight: FontWeight.w600,
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
                         const SizedBox(
                           height: 15,
                         ),

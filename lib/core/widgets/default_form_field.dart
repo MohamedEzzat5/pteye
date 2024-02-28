@@ -98,10 +98,11 @@ class CustomFormField extends StatelessWidget {
         textDirection: textDirection,
         initialValue: initialValue,
         controller: controller,
-        validator: (data){ if (data!.isEmpty) {
-          return 'من فضلك ادخل البيانات';
-        }
-        },
+        validator: (data) {
+          if(data!.isEmpty){
+            return  'من فضلك ادخل البيانات';
+          } return null;
+        } ,
         keyboardType: keyboardType,
         onFieldSubmitted: onFieldSubmitted,
         onEditingComplete: onEditingComplete,
@@ -123,10 +124,17 @@ class CustomFormField extends StatelessWidget {
             color: labelColor,
           ),
           labelText: labelText,
-          border: inputBorder,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
           enabledBorder: inputEnabledBorder,
           disabledBorder: inputDisabledBorder,
-          focusedBorder: inputFocusedBorder,
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: const BorderSide(
+                width: 2,
+                color: kPrimaryColor,
+              )),
           hintText: hintText,
           hintStyle: const TextStyle(
             fontSize: 15,
