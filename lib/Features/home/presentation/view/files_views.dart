@@ -70,7 +70,7 @@ class FilesView extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10,),
-          const RecordAndPlayVoice(),
+          const Expanded(child:  SingleChildScrollView(child: RecordAndPlayVoice())),
         ],
       ),
     );
