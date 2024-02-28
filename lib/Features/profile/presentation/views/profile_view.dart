@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:pteye/Features/profile/presentation/views/widgets/custom_avatar.
 import 'package:pteye/core/utils/app_router.dart';
 import 'package:pteye/core/utils/constance.dart';
 import 'package:pteye/core/utils/style.dart';
+import 'package:pteye/core/utils/widgets/alert_dialog.dart';
 import 'package:pteye/core/widgets/custom_app_bar.dart';
 import 'package:pteye/core/widgets/default_button.dart';
 
@@ -67,10 +69,18 @@ class ProfileView extends StatelessWidget {
                         child: CustomMaterialButton(
                           background: Colors.red,
                           onPressed: () async {
-                            GoogleSignIn googleSignIn = GoogleSignIn();
-                            googleSignIn.disconnect();
-                            await FirebaseAuth.instance.signOut();
-                            navigateToLogin();
+                            return customAwesomeDialog(
+                              title: 'تسجيل الخروج',
+                              description: 'هل تريد تسجيل الخروج؟',
+                              dialogType: DialogType.question,
+                              buildContext: context,
+                              okOnPressed: ()async{
+                                GoogleSignIn googleSignIn = GoogleSignIn();
+                              googleSignIn.disconnect();
+                              await FirebaseAuth.instance.signOut();
+                              navigateToLogin();} ,
+                            );
+
                           },
                           text: 'تسجيل الخروج',
                           fontSize: 18,

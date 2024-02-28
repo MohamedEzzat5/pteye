@@ -31,8 +31,9 @@ class FilesNoData extends FilesState {
 
 class FilesLoaded extends FilesState {
   final List<Map<String, dynamic>> selectedItems;
+  final bool isDone;
 
-  FilesLoaded({required this.selectedItems});
+  FilesLoaded({required this.selectedItems, required this.isDone});
 
   @override
   List<Object?> get props => [selectedItems];

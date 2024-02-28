@@ -21,14 +21,13 @@ class FilesCubit extends Cubit<FilesState> {
         Map<String, dynamic> selectedItems = querySnapshot.docs.first.data();
         List<Map<String, dynamic>> videos =
         List<Map<String, dynamic>>.from(selectedItems['selectedItems']);
-        emit(FilesLoaded(selectedItems: videos));
-      }else if(querySnapshot.docs.isEmpty){
+        final bool isDone = selectedItems['isDone'] ?? false;
+        emit(FilesLoaded(selectedItems: videos, isDone: isDone));
+      } else if (querySnapshot.docs.isEmpty) {
         emit(FilesNoData());
-      }
-
-      else {
+      } else {
         // Document with ID equal to currentUserId not found
-        emit(FilesLoaded(selectedItems: const []));
+        emit(FilesLoaded(selectedItems: const [], isDone: false));
       }
     } catch (e) {
       if (kDebugMode) {
@@ -49,10 +48,10 @@ class FilesCubit extends Cubit<FilesState> {
 
       // Emit a state to indicate the item has been marked as done
       emit(ItemMarkedAsDone());
+      fetchSelectedItems();
     } catch (e) {
       // Emit an error state if the update fails
       emit(FilesError(error: 'Failed to mark item as done!'));
     }
   }
 }
-

@@ -13,7 +13,9 @@ required String description,
 
     return AwesomeDialog(
       context: buildContext,
+      btnOkText: 'نعم',
       showCloseIcon: true,
+      autoHide: const Duration(seconds: 3),
       animType: animType ?? AnimType.rightSlide,
       dialogType: dialogType,
       title: title,
