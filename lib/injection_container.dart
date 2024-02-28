@@ -15,8 +15,8 @@ final sl = GetIt.instance;
 Future<void> init() async {
 //! features
   //Blocs
-  sl.registerFactory(() => RegisterCubit(authRepo: sl()));
-  sl.registerFactory(() => LoginCubit(authRepo: sl()));
+  sl.registerFactory(() => RegisterCubit(authRepo: sl(), networkInfo: sl()));
+  sl.registerFactory(() => LoginCubit(authRepo: sl(), networkInfo: sl()));
 
   //use Cases
   // sl.registerLazySingleton(() => GetRandomQuote(quoteRepository: sl()));
