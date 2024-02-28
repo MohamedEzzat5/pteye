@@ -50,7 +50,7 @@ class FilesView extends StatelessWidget {
                           ),
                         ) : const Column(
                           children: [
-                            SizedBox(height: 10,),
+                            SizedBox(height: 12,),
                              DefaultText(text: 'نتمني لك الشفاء العاجل',fontSize: 18,fontWeight: FontWeight.w500),
                           ],
                         ),
@@ -69,6 +69,7 @@ class FilesView extends StatelessWidget {
               },
             ),
           ),
+          const SizedBox(height: 10,),
           const RecordAndPlayVoice(),
         ],
       ),

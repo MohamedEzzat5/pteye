@@ -61,7 +61,8 @@ void userState(){
       child: MaterialApp.router(
           routerConfig: AppRouter.router,
           debugShowCheckedModeBanner: false,
-          theme: ThemeData.dark(useMaterial3: true).copyWith(
+          theme: ThemeData.light(useMaterial3: true).copyWith(
+            cardTheme: CardTheme(elevation: 0,),
             scaffoldBackgroundColor: const Color(0xffECF0F1),
             textTheme:
                 GoogleFonts.tajawalTextTheme(ThemeData.light().textTheme),

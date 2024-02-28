@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pteye/core/utils/constance.dart';
+import 'package:pteye/core/widgets/default_text.dart';
 import 'package:record/record.dart';
 import 'package:audioplayers/audioplayers.dart';
 
@@ -65,15 +67,24 @@ class _RecordAndPlayVoiceState extends State<RecordAndPlayVoice> {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return  Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if(isRecording)
-          const Text('Recording is Progress'),
         ElevatedButton(
-            onPressed:isRecording? stopRecording: startRecording, child: isRecording? const Text('Stop Recording'):const Text('Start Recording')),
-        const SizedBox(height: 25,),
+          style: ElevatedButton.styleFrom(shape: const CircleBorder(side: BorderSide(style: BorderStyle.solid,color: kPrimaryColor)),
+            padding: EdgeInsets.zero,
+
+          ),
+            onPressed:isRecording? stopRecording: startRecording, child: isRecording? const Icon(Icons.pause_circle_filled_rounded,size: 32,):const Icon(Icons.keyboard_voice_rounded,size: 32,)),
+        if(isRecording)
+          const DefaultText(text: 'Recording is Progress',fontSize: 15,),
+        const SizedBox(width: 0,),
           if(!isRecording && audioPath!= null)
-        ElevatedButton(onPressed: playRecording, child: const Text('Play Recording'))
+        ElevatedButton(onPressed: playRecording, child: const DefaultText(text: 'Play Recording',fontSize: 15,),
+        style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 60,vertical: 8),
+          shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)),side: BorderSide(style: BorderStyle.solid,color: kPrimaryColor))
+        )
+        )
 
       ],
     );

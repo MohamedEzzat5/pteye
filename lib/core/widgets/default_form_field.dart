@@ -137,10 +137,10 @@ class CustomFormField extends StatelessWidget {
               )),
           hintText: hintText,
           hintStyle: const TextStyle(
-            fontSize: 15,
+            fontSize: 16,
             color: Colors.grey,
           ),
-          hintTextDirection: TextDirection.ltr,
+          hintTextDirection: TextDirection.rtl,
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
         ),
