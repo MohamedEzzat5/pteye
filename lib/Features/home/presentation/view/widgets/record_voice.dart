@@ -111,14 +111,24 @@ class _RecordAndPlayVoiceState extends State<RecordAndPlayVoice> {
   }
 
   Future<void> deleteRecording(int id) async {
+    // Delete the current recording
     await db.delete(
       'audio_paths',
       where: 'id = ?',
       whereArgs: [id],
     );
+
+    // Check if there's only one path left
     final List<String> paths = await _retrieveAllAudioPaths();
+    if (paths.length <= 1) {
+      // Delete all recordings
+      await db.delete('audio_paths');
+    }
+
+    // Retrieve the updated list of audio paths
+    final List<String> updatedPaths = await _retrieveAllAudioPaths();
     setState(() {
-      currentAudioPath = paths.isNotEmpty ? paths.first : null;
+      currentAudioPath = updatedPaths.isNotEmpty ? updatedPaths.last : null;
     });
   }
 
@@ -172,7 +182,7 @@ class _RecordAndPlayVoiceState extends State<RecordAndPlayVoice> {
             } else if (snapshot.hasError) {
               return const DefaultText(
                 text: 'لا يوجد تسجيلات',
-                fontSize: 14,
+                fontSize: 16,
               );
             } else {
               final List<String> audioPaths = snapshot.data!;

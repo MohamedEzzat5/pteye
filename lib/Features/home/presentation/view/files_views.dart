@@ -61,8 +61,11 @@ class FilesView extends StatelessWidget {
                       style: Styles.textStyle20.copyWith(color: Colors.grey));
                 } else if (state is FilesNoData) {
                   return Center(
-                      child: Text('لا يوجد ملفات حاليًا',
-                          style: Styles.textStyle20.copyWith(color: Colors.grey)));
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Text('لا يوجد ملفات حاليًا',
+                            style: Styles.textStyle20.copyWith(color: Colors.grey)),
+                      ));
                 } else {
                   return const SizedBox(height: 1);
                 }
