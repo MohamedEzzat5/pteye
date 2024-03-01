@@ -42,7 +42,6 @@ dependencies:
   google_sign_in: ^6.2.1
   cloud_firestore: ^4.14.0
   firebase_storage: ^11.6.0
-  firebase_messaging: ^14.7.10
   awesome_dialog: ^3.2.0
   equatable:
   dartz: ^0.10.1
@@ -65,6 +64,7 @@ dependencies:
   record: ^4.4.4
   audioplayers:
   sqflite: ^2.3.2
+  onesignal_flutter: ^5.1.0
 
 
 
@@ -96,7 +96,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
 flutter_launcher_icons:
   android: "icon"
-  image_path: "assets/images/icon.jpg"
+  image_path: "assets/images/app_icon.jpg"
   min_sdk_android: 16 # android min sdk min:16, default 21
 
 

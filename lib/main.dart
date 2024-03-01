@@ -3,9 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:pteye/Features/auth/presentation/manger/login_cubit/login_cubit.dart';
 import 'package:pteye/core/utils/app_router.dart';
 import 'package:pteye/core/utils/constance.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pteye/firebase_options.dart';
@@ -32,21 +34,28 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-void userState(){
-  FirebaseAuth.instance.authStateChanges().listen((User? user) {
-    if(user == null){
-      debugPrint('=================user is currently signed out');
-    }else{
-      debugPrint('=================user is signed in');
-    }
-  });
-}
-  @override
-
-  void initState() {
-  userState();
-    super.initState();
+  void userState() {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        debugPrint('=================user is currently signed out');
+      } else {
+        debugPrint('=================user is signed in');
+      }
+    });
   }
+
+  @override
+  void initState() {
+    userState();
+    super.initState();
+    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+    OneSignal.initialize('a22c83d8-de14-49e6-891b-ecb7f8310705');
+    OneSignal.Notifications.requestPermission(true).then((value) {
+      debugPrint('signal value: $value'  );
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -62,10 +71,12 @@ void userState(){
           routerConfig: AppRouter.router,
           debugShowCheckedModeBanner: false,
           theme: ThemeData.light(useMaterial3: true).copyWith(
-            cardTheme: CardTheme(elevation: 0,),
+            cardTheme: const CardTheme(elevation: 0,),
             scaffoldBackgroundColor: const Color(0xffECF0F1),
             textTheme:
-                GoogleFonts.tajawalTextTheme(ThemeData.light().textTheme),
+            GoogleFonts.tajawalTextTheme(ThemeData
+                .light()
+                .textTheme),
             colorScheme: ColorScheme.fromSeed(seedColor: kPrimaryColor),
           )),
     );
