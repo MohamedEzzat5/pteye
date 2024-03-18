@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +11,12 @@ import 'package:pteye/core/utils/app_router.dart';
 import 'package:pteye/core/utils/constance.dart';
 import 'package:pteye/core/utils/media_query_values.dart';
 import 'package:pteye/core/utils/style.dart';
+import 'package:pteye/core/utils/widgets/alert_dialog.dart';
 
 class DoctorView extends StatelessWidget {
-  const DoctorView({super.key,});
+  const DoctorView({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +24,17 @@ class DoctorView extends StatelessWidget {
       bool type = false;
       await Future.delayed(
         Duration.zero,
-            () {
+        () {
           showDialog(
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-
                 backgroundColor: Colors.white,
                 elevation: 0,
                 title: Text(
                   'هل تريد الخروج من البرنامج؟',
                   style:
-                  Styles.textStyle20.copyWith(fontWeight: FontWeight.w500),
+                      Styles.textStyle20.copyWith(fontWeight: FontWeight.w500),
                   textAlign: TextAlign.end,
                 ),
                 actions: [
@@ -58,6 +61,7 @@ class DoctorView extends StatelessWidget {
       );
       return type;
     }
+
     navigateToLogin() {
       GoRouter.of(context).push(AppRouter.kLoginView);
     }
@@ -86,7 +90,6 @@ class DoctorView extends StatelessWidget {
               return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
-
                   final int displayIndex = index + 1;
                   final document = snapshot.data!.docs[index];
                   final String userId = document.id;
@@ -94,8 +97,23 @@ class DoctorView extends StatelessWidget {
                     return const SizedBox();
                   }
                   return GestureDetector(
+                    onLongPress: () {
+                      customAwesomeDialog(
+                        title: 'حذف الحساب',
+                        description: 'هل تريد تريد حذف هذا الحساب؟',
+                        dialogType: DialogType.question,
+                        buildContext: context,
+                        okOnPressed: () async {
+                          FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(userId)
+                              .delete();
+                        },
+                      );
+                    },
                     onTap: () {
-                      GoRouter.of(context).push(AppRouter.kDoctorVideoView,extra: userId);
+                      GoRouter.of(context)
+                          .push(AppRouter.kDoctorVideoView, extra: userId);
                     },
                     child: Container(
                       width: double.infinity,
@@ -114,14 +132,13 @@ class DoctorView extends StatelessWidget {
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600),
                           ),
-                          Text('Name: ' +
-                              snapshot.data!.docs[index]['username'],
-                              style: Styles.textStyle16.copyWith(
-                                  color: Colors.white)),
-                          Text('Email: ' +
-                              snapshot.data!.docs[index]['email'],
-                              style: Styles.textStyle16.copyWith(
-                                  color: Colors.white)),
+                          Text(
+                              'Name: ' + snapshot.data!.docs[index]['username'],
+                              style: Styles.textStyle16
+                                  .copyWith(color: Colors.white)),
+                          Text('Email: ' + snapshot.data!.docs[index]['email'],
+                              style: Styles.textStyle16
+                                  .copyWith(color: Colors.white)),
                         ],
                       ),
                     ),

@@ -17,13 +17,13 @@ class AuthRepoImplementation implements AuthRepo {
       return right(unit);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        return left('بريد الكتروني غير صحيح!');
+        return left('بريد الكتروني غير صحيح');
       } else if (e.code == 'wrong-password') {
-        return left('كلمة مرور غير صحيحة!');
+        return left('كلمة مرور غير صحيحة');
       } else if (e.code == 'invalid-email') {
-        return left('بريد إلكتروني غير صالح!');
+        return left('بريد إلكتروني غير صالح');
       } else {
-        return left('ادخل بيانات صحيحة!');
+        return left('ادخل بيانات صحيحة');
       }
     } catch (e) {
       return left('حدث خطأ غير متوقع');
@@ -38,7 +38,7 @@ class AuthRepoImplementation implements AuthRepo {
       final GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
 
       if (googleSignInAccount == null) {
-        return left("فشل تسجيل الدخول باستخدام جوجل برجاء اعادة المحاولة");
+        return left("فشل تسجيل الدخول بواسطة جوجل برجاء اعادة المحاولة");
       }
 
       final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
@@ -61,7 +61,7 @@ class AuthRepoImplementation implements AuthRepo {
       if (kDebugMode) {
         print("Error signing up with Google: $e");
       }
-      return left("Error signing up with Google");
+      return left('حدث خطأ غير متوقع أثناء التسجيل');
     }
   }
 
@@ -106,11 +106,11 @@ class AuthRepoImplementation implements AuthRepo {
       return right(unit);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
-        return left('البريد الإلكتروني مستخدم بالفعل!');
+        return left('البريد الإلكتروني مستخدم بالفعل');
       } else if (e.code == 'invalid-email') {
-        return left('بريد إلكتروني غير صالح!');
+        return left('بريد إلكتروني غير صالح');
       } else if (e.code == 'weak-password') {
-        return left('كلمة المرور ضعيفة جداً!');
+        return left('كلمة المرور ضعيفة جداً');
       } else {
         return left('خطأ: فشل التسجيل');
       }
